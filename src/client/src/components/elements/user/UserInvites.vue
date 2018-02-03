@@ -2,14 +2,12 @@
   div
     div.box
       a.button.is-primary(@click.stop="handleLoad") Оновити
-    generate-invite(:company="company")
     div.box
-      invites-table(:data="invites", @remove="handleRemove")
+      invites-table(:data="invites", @remove="handleRemove", @accept="handleAccept")
 </template>
 <script>
-  import InvitesTable from './InvitesTable';
   import InvitesAPI from '#/InvitesAPI';
-  import GenerateInvite from './GenerateInvite';
+  import InvitesTable from './InvitesTable';
 
   export default {
     data () {
@@ -18,10 +16,24 @@
       }
     },
     components: {
-      InvitesTable,
-      GenerateInvite
+      InvitesTable
     },
     methods: {
+      async handleAccept (id) {
+        this.$bus.$emit('load-start');
+        try {
+          let result = await InvitesAPI.accept(id);
+          console.log(result.data)
+          if (result.data.success) {
+            this.handleLoad();
+          } else {
+            throw result.data.message;
+          }
+        } catch (err) {
+          this.$messages.error(err, this);
+        }
+        this.$bus.$emit('load-end');
+      },
       async handleRemove (id) {
         this.$bus.$emit('load-start');
         try {
@@ -40,7 +52,7 @@
       async handleLoad () {
         this.$bus.$emit('load-start')
         try {
-          let result = await InvitesAPI.load(this.company.id);
+          let result = await InvitesAPI.loadByUser(this.$store.state.user.id || this.$store.state.user._id);
           console.log(result.data)
           if (result.data.success) {
             this.invites = result.data.item;
@@ -55,8 +67,9 @@
     },
     computed: {},
     props: {
-      company: {
-        required: true
+      user: {
+        required: true,
+        type: Object
       }
     },
     mounted () {
@@ -66,9 +79,6 @@
     destroyed () {
       this.$bus.$off('invites-update', this.handleLoad);
     },
-    created () {
-
-    }
   }
 </script>
 <style scoped lang="scss">

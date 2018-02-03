@@ -4,8 +4,11 @@
   focusable,
   detail-key="_id")
     template( slot-scope="props")
-      b-table-column( field="to", label="ID отримувача") {{ props.row.to }}
-      b-table-column( field="role", label="Посада отримувача") {{ props.row.role }}
+      b-table-column( field="to", label="ID компанії") {{ props.row.from}}
+      b-table-column( field="role", label="Посада") {{ props.row.role }}
+      b-table-column( field="id",label="Погодитися")
+        a.button(@click.stop="handleAccept(props.row._id||props.row._id)")
+          b-icon(icon="check", type="is-success")
       b-table-column( field="id",label="Видалити")
         a.button(@click.stop="handleDelete(props.row._id||props.row._id)")
           b-icon(icon="delete", type="is-danger")
@@ -16,22 +19,25 @@
             b-icon(    icon="emoticon-sad",    size="is-large")
           p Немає запрошень
     template(slot="detail",slot-scope="props")
-      router-link(:to="{name:'Profile',params:{id:props.row.to}}")
-        user-info(:id="props.row.to")
+      router-link(:to="{name:'Company.view',params:{id:props.row.from}}")
+        company-short(:id="props.row.from")
 </template>
 <script>
-  import UserInfo from '@elements/user/UserShort';
+  import CompanyShort from '@elements/company/CompanyShort';
 
   export default {
     data () {
       return {}
     },
     components: {
-      UserInfo
+      CompanyShort
     },
     methods: {
       handleDelete (id) {
         this.$emit('remove', id)
+      },
+      handleAccept (id) {
+        this.$emit('accept', id)
       }
     },
     computed: {

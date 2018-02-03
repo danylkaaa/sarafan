@@ -1,10 +1,10 @@
 "use strict";
 const config = require('@config');
-const DB=require('@DB');
+const DB = require('@DB');
 const Auth = require('./auth/index');
 
-exports.init = (app) => {
-    DB.connect();
+exports.init = async (app) => {
+    await DB.connect();
     Auth.init(app);
     console.log('+Tools: configured');
 };
