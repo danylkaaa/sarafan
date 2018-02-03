@@ -1,6 +1,7 @@
 <template lang="pug">
-  div
-    p.title 404
+  div.content.hero.is-medium
+    h1.title 404
+    h2.subtitle page not found
 </template>
 
 <script>
