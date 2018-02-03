@@ -5,7 +5,7 @@
     app-register(ref="register")
     app-header
     router-view
-    router-view
+    q-r
 </template>
 
 <script>
@@ -18,7 +18,8 @@
     components: {
       AppLogin,
       AppRegister,
-      AppHeader
+      AppHeader,
+      QR
     },
     data () {
       return {
