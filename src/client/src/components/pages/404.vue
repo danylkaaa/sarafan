@@ -1,4 +1,7 @@
 <template lang="pug">
+    div.content.hero.is-medium
+        h1.title 404
+        h2.subtitle page not found
 
 </template>
 
@@ -10,6 +13,5 @@
     }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
 </style>
