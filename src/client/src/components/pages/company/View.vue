@@ -6,7 +6,7 @@
         div.container(v-if="this.company")
           company-info(:company="company")
       b-tab-item(label="Додати співробітників", v-if="haveEditRules")
-          company-add-staff(:company="company")
+        company-add-staff(:company="company")
 </template>
 <script>
   import CompanyAPI from '#/CompanyAPI';
