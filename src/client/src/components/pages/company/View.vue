@@ -6,12 +6,12 @@
         div.container(v-if="this.company")
           company-info(:company="company")
       b-tab-item(label="Додати співробітників", v-if="haveEditRules")
-          company-add-staff(:company="company")
+        company-add-staff(:company="company")
 </template>
 <script>
   import CompanyAPI from '#/CompanyAPI';
   import CompanyInfo from '@elements/company/Info';
-
+  import CompanyAddStaff from '@elements/company/CompanyAddStaff';
   export default {
     data () {
       return {
@@ -20,7 +20,8 @@
       }
     },
     components: {
-      CompanyInfo
+      CompanyInfo,
+      CompanyAddStaff
     },
     methods: {
       urlHandle (query) {

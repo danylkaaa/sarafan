@@ -49,13 +49,13 @@ router.get('/:id/positions', async (req, res, next) => {
 });
 
 
-router.get('/:id/invites', passport.authenticate(['access'], { session: false }), async (req, res, next) => {
+router.get('/:id/invites', passport.authenticate(['access'], {session: false}), async (req, res, next) => {
     return res.json({
         success: true,
         item: await InviteDB.get.byUser(req.user.id)
     })
-  
-router.delete('/:id', passport.authenticate(['access'], { session: false }), async (req, res, next) => {
+})
+router.delete('/:id', passport.authenticate(['access'], {session: false}), async (req, res, next) => {
     console.log(1)
     try {
         let user = await UserDB.get.byID(req.params.id);
