@@ -30,6 +30,9 @@
         try {
           const result = await UserAPI.remove(this.id);
           if (result.data.success) {
+            if (this.id == this.$store.state.user.id) {
+              this.$bus.$emit('logout');
+            }
             this.$router.push({name: 'Home'})
           } else {
             throw result.data.message
