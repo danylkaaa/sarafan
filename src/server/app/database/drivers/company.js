@@ -17,22 +17,7 @@ const get = {
     },
     byQuery(data) {
         return DB.methods.get.oneByQuery(Company, data);
-    }
-};
-
-const remove = {
-    byID(id) {
-        return DB.methods.remove.byID(Company, id);
-    }
-};
-
-const update = {
-    byID(id, data) {
-        return DB.methods.update.byID(Company, id, data);
-    }
-}
-
-const find = {
+    },
     async byAdmin(adminID) {
         let companies = await DB.methods.get.all(Company);
         let finded = [];
@@ -48,11 +33,22 @@ const find = {
 
         return finded;
     }
+};
+
+const remove = {
+    byID(id) {
+        return DB.methods.remove.byID(Company, id);
+    }
+};
+
+const update = {
+    byID(id, data) {
+        return DB.methods.update.byID(Company, id, data);
+    }
 }
 
 module.exports = {
     create,
     get,
-    remove,
-    find
+    remove
 }
