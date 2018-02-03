@@ -20,7 +20,7 @@ router.get('/:id', async (req, res, next) => {
         return Utils.sendError(res, 404, 'Not found');
     }
 });
-<<<<<<< HEAD
+
 
 router.get('/:id/companies', async (req, res, next) => {
     let user = await UserDB.get.byID(req.params.id);
@@ -52,7 +52,7 @@ router.get('/:id/invites', async (req, res, next) => {
     
 });
 
-=======
+
 router.delete('/:id', passport.authenticate(['access'], {session: false}), async (req, res, next) => {
     console.log(1)
     try {
@@ -72,5 +72,5 @@ router.delete('/:id', passport.authenticate(['access'], {session: false}), async
         return Utils.sendError(res, 500, err);
     }
 });
->>>>>>> 5a1f4cccfa52f0f9805208689043d3b2dd48ea16
+
 module.exports = router;
