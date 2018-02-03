@@ -6,8 +6,7 @@ config.auth = {
   facebook: {
     APP_ID: '149504242426780',
     URL: '/api/v1/auth/facebook',
-    SCOPE: 'public_profile,email',
+    SCOPE: 'public_profile, email',
   }
 };
 export default config;
-

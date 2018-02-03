@@ -3,34 +3,33 @@ import {$bus} from '#/plugins/Bus';
 
 let buttons = [];
 buttons.push({
-  title: "Уввійти",
-  class: "is-hidden-desktop",
+  title: "Ввійти",
+  // class: "is-hidden-desktop",
   handler: () => {
-    $bus.$emit('login');
+    $bus.$emit('login', 'facebook');
   },
   icon: {
-    name: "sign-in",
+    name: "facebook",
     pack: "fa"
   },
   tooltip: "Уввійти до акаунту",
   condition: () => !$store.getters.isLogged()
 })
-buttons.push({
-  title: "Реєстрація",
-  class: "is-hidden-desktop",
-  handler: () => {
-    $bus.$emit('register');
-  },
-  icon: {
-    name: "account",
-    pack: "mdi"
-  },
-  tooltip: "Створити акаунт",
-  condition: () => !$store.getters.isLogged()
-})
+// buttons.push({
+//   title: "Реєстрація",
+//   class: "is-hidden-desktop",
+//   handler: () => {
+//     $bus.$emit('register');
+//   },
+//   icon: {
+//     name: "account",
+//     pack: "mdi"
+//   },
+//   tooltip: "Створити акаунт",
+//   condition: () => !$store.getters.isLogged()
+// })
 buttons.push({
   title: "Вийти",
-  class: "is-hidden-desktop",
   handler: () => {
     $bus.$emit('logout');
   },

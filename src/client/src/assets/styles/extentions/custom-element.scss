@@ -13,7 +13,9 @@ $addColors: (
   "facebook": ($facebook, $facebook-invert),
 );
 $colors: map-merge($colors, $addColors);
-
+$dimensions: (
+  16, 24, 32, 48, 64, 96, 128, 256, 512
+);
 // Add a serif family
 $family-serif: "Merriweather", "Georgia", serif;
 

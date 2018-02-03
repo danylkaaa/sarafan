@@ -25,20 +25,20 @@ async function loginFacebook () {
   }
 }
 
-async function loginBasic (credentials) {
-  try {
-    const response = await AuthAPI.login(credentials);
-    if (response.data.success) {
-      saveUserInfo(response.data);
-      return true;
-    } else {
-      throw response.data.message
-    }
-  } catch (err) {
-    throw ('data' in err) ? err.data.message : err.message;
-  }
-  return false;
-}
+// async function loginBasic (credentials) {
+//   try {
+//     const response = await AuthAPI.login(credentials);
+//     if (response.data.success) {
+//       saveUserInfo(response.data);
+//       return true;
+//     } else {
+//       throw response.data.message
+//     }
+//   } catch (err) {
+//     throw ('data' in err) ? err.data.message : err.message;
+//   }
+//   return false;
+// }
 
 function saveUserInfo (data) {
   $store.dispatch('LOGIN', data);
@@ -48,20 +48,20 @@ function clearUserInfo () {
   $store.dispatch('LOGOUT');
 }
 
-async function registerBasic (credentials) {
-  try {
-    const response = await AuthAPI.register(credentials);
-    if (response.data.success) {
-      saveUserInfo(response.data);
-      return true;
-    } else {
-      throw response.data.message;
-    }
-  } catch (err) {
-    throw ('data' in err) ? err.data.message : err.message;
-  }
-  return false;
-}
+// async function registerBasic (credentials) {
+//   try {
+//     const response = await AuthAPI.register(credentials);
+//     if (response.data.success) {
+//       saveUserInfo(response.data);
+//       return true;
+//     } else {
+//       throw response.data.message;
+//     }
+//   } catch (err) {
+//     throw ('data' in err) ? err.data.message : err.message;
+//   }
+//   return false;
+// }
 
 export default {
   install (Vue) {

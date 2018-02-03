@@ -17,6 +17,7 @@ export default new Vuex.Store({
     createPersistedState()
   ],
   getters: {
+    isAdmin: (state) => () => state.user.role == 'admin',
     isLogged: (state) => () => Boolean(state.user),
     isNotLogged: (state) => () => !Boolean(state.user),
   },

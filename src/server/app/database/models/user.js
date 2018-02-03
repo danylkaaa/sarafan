@@ -5,28 +5,20 @@ const config = require('@config');
 const validator = require('@validator');
 
 let User = new Mongoose.Schema({
-    isUsedBasicAuth: {
+    picture: {
+        type: String,
+    },
+    name: {
+        type: String,
         required: true,
-        type: Boolean,
-        default: true
     },
     email:
         {
             type: String,
             unique: true,
-            required: function () {
-                return this.isUsedBasicAuth;
-            },
             validate: {
                 validator: (value) => validator.user.email(value).valid,
                 message: "{VALUE} is not a valid email"
-            },
-        },
-    password:
-        {
-            type: String,
-            required: function () {
-                return this.isUsedBasicAuth;
             },
         },
     created: {
@@ -34,13 +26,14 @@ let User = new Mongoose.Schema({
         default: Date.now
     },
     facebook: {
+        access:String,
+        refresh:String,
         id: String,
-        name: String,
         picture: String
     },
     role: {
         type: String,
-        enum: [ 'user', 'admin' ],
+        enum: ['user', 'admin'],
         default: 'user'
     }
 
@@ -61,13 +54,13 @@ User.index({email: 1}, {unique: true});
  * 2. Regenerate secrets
  */
 User.pre('save', async function (next) {
-    if (!this.isUsedBasicAuth && this.isNew) {
-        this.password = await Utils.crypto.random(10);
-        this.email = this.email || Mongoose.Types.ObjectId();
-    }
-    if (this.isModified('password') || this.isNew) {
-        this.password = await Utils.crypto.hash(this.password, config.security.SERVER_SALT);
-    }
+    // if (!this.isUsedBasicAuth && this.isNew) {
+    //     this.password = await Utils.crypto.random(10);
+    //     this.email = this.email || Mongoose.Types.ObjectId();
+    // }
+    // if (this.isModified('password') || this.isNew) {
+    //     this.password = await Utils.crypto.hash(this.password, config.security.SERVER_SALT);
+    // }
     next();
 });
 
@@ -136,17 +129,15 @@ User.methods.info = function () {
     let info = {
         id: this.id,
         role: this.role,
-        created: this.created
-    };
-    if (this.isUsedBasicAuth) {
-        info.email = this.email;
-    }
-    if (this.facebook) {
-        info.facebook = {
-            name: this.facebook.name,
-            id: this.facebook.id
+        name:this.name,
+        created: this.created,
+        email: this.email,
+        picture: this.picture,
+        facebook: {
+            id: this.facebook.id,
+            link: this.facebook.link
         }
-    }
+    };
     return info;
 };
 

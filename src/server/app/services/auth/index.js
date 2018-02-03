@@ -9,7 +9,7 @@ module.exports.init = (app) => {
     facebook();
     access();
     refresh();
-    basic();
+    // basic();
     app.use(passport.initialize());
     console.log('+Auth: configured');
 };

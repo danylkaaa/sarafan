@@ -1,22 +1,15 @@
 <template lang="pug">
   div#app
     b-loading(:active="UI.isLoading")
-    app-login(ref="login")
-    app-register(ref="register")
     app-header
     router-view
 </template>
 
 <script>
-  import AppLogin from '@elements/auth/Login';
-  import AppRegister from '@elements/auth/Register';
   import AppHeader from '@elements/Header';
-
   export default {
     name: 'App',
     components: {
-      AppLogin,
-      AppRegister,
       AppHeader
     },
     data () {
@@ -36,12 +29,23 @@
       addEventHandlers () {
         this.$bus.$on('load-start', this.loadStart);
         this.$bus.$on('load-end', this.loadEnd);
+        this.$bus.$on('login', this.loginHandler);
         this.$bus.$on('logout', this.$auth.logout);
       },
       removeEventHandlers () {
+        this.$bus.$off('login', this.loginHandler);
         this.$bus.$off('load-start', this.loadStart);
         this.$bus.$off('load-end', this.loadEnd);
         this.$bus.$off('logout', this.$auth.logout);
+      },
+      async loginHandler (type) {
+        this.$bus.$emit('load-start');
+        try {
+          await this.$auth.login(type)
+        } catch (err) {
+          this.$messages.error(err, this)
+        }
+        this.$bus.$emit('load-end');
       }
     },
     mounted () {

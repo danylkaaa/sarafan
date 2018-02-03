@@ -29,28 +29,28 @@ async function sendToken (req, res, next) {
         });
 }
 
-router.post('/register',
-    async (req, res, next) => {
-        // verify, is all data had been passed
-        const fields = ['email', 'password'];
-        fields.forEach(field => {
-            let result = validate.user[field](req.body[field]);
-            if (!result.valid) {
-                return Utils.sendError(res, 400, result.message);
-            }
-        });
-        next();
-    },
-    async (req, res, next) => {
-        try {
-            req.user = await DBusers.create({email: req.body.email, password: req.body.password});
-        } catch (err) {
-            return errorHandler(res, err);
-        }
-        next();
-    },
-    sendUser);
-router.post('/login', passport.authenticate(['basic'], {session: false}), sendUser);
+// router.post('/register',
+//     async (req, res, next) => {
+//         // verify, is all data had been passed
+//         const fields = ['email', 'password', 'name'];
+//         fields.forEach(field => {
+//             let result = validate.user[field](req.body[field]);
+//             if (!result.valid) {
+//                 return Utils.sendError(res, 400, result.message);
+//             }
+//         });
+//         next();
+//     },
+//     async (req, res, next) => {
+//         try {
+//             req.user = await DBusers.create({email: req.body.email, password: req.body.password, name: req.name});
+//         } catch (err) {
+//             return errorHandler(res, err);
+//         }
+//         next();
+//     },
+//     sendUser);
+// router.post('/login', passport.authenticate(['facebook'], {session: false}), sendUser);
 router.get('/token', passport.authenticate(['refresh'], {session: false}), sendToken);
 router.post('/facebook', passport.authenticate(['facebook'], {session: false}), sendUser);
 module.exports = router;
