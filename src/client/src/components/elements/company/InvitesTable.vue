@@ -5,12 +5,14 @@
   export default {
     data () {
       return {
-        columns:[
+        columns: [
           {
-            field: 'id',
-            label: 'token',
-            width: '40',
-
+            field: 'to',
+            label: 'TO',
+          },
+          {
+            field: 'role',
+            label: 'Role',
           },
         ]
       }

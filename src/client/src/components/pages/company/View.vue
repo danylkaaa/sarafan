@@ -11,7 +11,7 @@
 <script>
   import CompanyAPI from '#/CompanyAPI';
   import CompanyInfo from '@elements/company/Info';
-
+  import CompanyAddStaff from '@elements/company/CompanyAddStaff';
   export default {
     data () {
       return {
@@ -20,7 +20,8 @@
       }
     },
     components: {
-      CompanyInfo
+      CompanyInfo,
+      CompanyAddStaff
     },
     methods: {
       urlHandle (query) {
