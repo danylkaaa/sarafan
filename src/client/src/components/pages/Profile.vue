@@ -28,7 +28,7 @@
       async handleDelete () {
         this.$bus.$emit('load-start');
         try {
-          const result = await UserAPI.delete(this.id);
+          const result = await UserAPI.remove(this.id);
           if (result.data.success) {
             this.$router.push({name: 'Home'})
           } else {
