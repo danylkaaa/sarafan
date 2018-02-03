@@ -1,0 +1,57 @@
+{
+  "name": "sarafan",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node ./src/server/bin/www",
+    "dev": "nodemon ./src/server/bin/www"
+  },
+  "_moduleAliases": {
+    "@root": "./src/server",
+    "@config": "./src/server/config/index.js",
+    "@routes": "./src/server/routes",
+    "@DBfolder": "./src/server/app/database/drivers",
+    "@DB": "./src/server/app/database/driver",
+    "@services": "./src/server/app/services/index",
+    "@utils": "./src/server/app/services/utils/index.js",
+    "@APIv1": "./src/server/routes/api/v1/index.js",
+    "@validator": "./src/server/app/services/validator/index.js",
+    "@errorHandler": "./src/server/app/services/errorHandler.js"
+  },
+  "dependencies": {
+    "body-parser": "~1.18.2",
+    "busboy": "^0.2.14",
+    "busboy-body-parser": "^0.3.1",
+    "consign": "^0.1.6",
+    "cookie-parser": "~1.4.3",
+    "cors": "^2.8.4",
+    "crypto": "^1.0.1",
+    "debug": "~2.6.9",
+    "dotenv": "^4.0.0",
+    "express": "~4.15.5",
+    "file-type": "^7.5.0",
+    "jsonwebtoken": "^8.1.1",
+    "module-alias": "^2.0.3",
+    "mongoose": "^4.13.9",
+    "mongoose-paginate": "^5.0.3",
+    "morgan": "~1.9.0",
+    "passport": "^0.4.0",
+    "passport-facebook": "^2.1.1",
+    "passport-facebook-token": "^3.3.0",
+    "passport-http": "^0.3.0",
+    "passport-http-bearer": "^1.0.1",
+    "serve-favicon": "~2.4.5"
+  },
+  "devDependencies": {
+    "nodemon": "^1.14.11"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "node_modules/*",
+      "src/client/*",
+      "src/server/views/*",
+      ".gitignore",
+      "LICENSE"
+    ]
+  }
+}
