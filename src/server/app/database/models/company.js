@@ -19,7 +19,7 @@ let Company = new Mongoose.Schema({
         },
         building: {
             required: true,
-            type: Number
+            type: String
         }
     },
     administration: {

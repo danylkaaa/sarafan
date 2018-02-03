@@ -12,7 +12,10 @@ const get = {
         return DB.methods.get.byID(Position, id);
     },
     byQuery(data) {
-        return DB.methods.get.byQuery(Position, data);
+        return DB.methods.get.oneByQuery(Position, data);
+    },
+    byUser(userID) {
+        return DB.methods.get.byQuery(Position, { user: userID });
     }
 }
 

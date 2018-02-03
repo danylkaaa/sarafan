@@ -5,6 +5,8 @@ const Utils = require('@utils');
 const passport = require('passport');
 
 const UserDB = require('@DBfolder/users');
+const CompanyDB = require('@DBfolder/company');
+const PositionDB = require('@DBfolder/position');
 
 router.get('/:id', async (req, res, next) => {
     let user = await UserDB.get.byID(req.params.id);
@@ -18,6 +20,39 @@ router.get('/:id', async (req, res, next) => {
         return Utils.sendError(res, 404, 'Not found');
     }
 });
+
+
+router.get('/:id/companies', async (req, res, next) => {
+    let user = await UserDB.get.byID(req.params.id);
+
+    if (user) {
+        return res.json({
+            success: true,
+            item: await CompanyDB.get.byAdmin(user.id)
+        });
+    } else {
+        return Utils.sendError(res, 404, 'Not found');
+    }
+});
+
+router.get('/:id/positions', async (req, res, next) => {
+    let user = await UserDB.get.byID(req.params.id);
+
+    if (user) {
+        return res.json({
+            success: true,
+            item: await PositionDB.get.byUser(user.id)
+        });
+    } else {
+        return Utils.sendError(res, 404, 'Not found');
+    }
+});
+
+router.get('/:id/invites', async (req, res, next) => {
+    
+});
+
+
 router.delete('/:id', passport.authenticate(['access'], {session: false}), async (req, res, next) => {
     console.log(1)
     try {
@@ -37,4 +72,5 @@ router.delete('/:id', passport.authenticate(['access'], {session: false}), async
         return Utils.sendError(res, 500, err);
     }
 });
+
 module.exports = router;

@@ -11,7 +11,7 @@ router.get('/:id', async (req, res, next) => {
     let company = await CompanyDB.get.byID(req.params.id);
 
     if (company) {
-        let { address, administration, staff, info } = company;
+        let {address, administration, staff, info} = company;
 
         let data = {
             address,
@@ -29,23 +29,25 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
-router.post('/create', passport.authenticate('access'), async (req, res, next) => {
-    let { address, info } = req.body;
-
+router.post('/create', passport.authenticate(['access'], {session: false}), async (req, res, next) => {
+    console.log(req.body)
+    let {address, info} = req.body;
     let data = {
         address,
         info,
+        name,
         administration: req.user.id
     };
 
-    await CompanyDB.create(data);
+    const company = await CompanyDB.create(data);
 
     return res.json({
-        success: true
+        success: true,
+        item: company
     });
 });
 
-router.delete('/:id', passport.authenticate('access'), async (req, res, next) => {
+router.delete('/:id', passport.authenticate(['access'], {session: false}), async (req, res, next) => {
     let company = await CompanyDB.get.byID(req.params.id);
 
     if (company.checkIsAdmin(req.user.id)) {
@@ -63,7 +65,7 @@ router.delete('/:id', passport.authenticate('access'), async (req, res, next) =>
     }
 });
 
-router.put('/:id', passport.authenticate('access'), async (req, res, next) => {
+router.put('/:id', passport.authenticate(['access'], {session: false}), async (req, res, next) => {
     let company = await CompanyDB.get.byID(req.params.id);
 
     if (company) {
@@ -86,7 +88,7 @@ router.put('/:id', passport.authenticate('access'), async (req, res, next) => {
 
 });
 
-router.post('/:id/invite', passport.authenticate('access'), async (req, res, next) => {
+router.post('/:id/invite', passport.authenticate(['access'], {session: false}), async (req, res, next) => {
     let company = await CompanyDB.get.byID(req.params.id);
 
     if (company) {

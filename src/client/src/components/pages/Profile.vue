@@ -8,6 +8,10 @@
           a.button.is-warning(@click.stop="handleEdit")  Змінити
       br
       user-card(:user="user")
+      br
+      div(v-if="$store.getters.isLogged()")
+        router-link(:to="{name:'Company.create'}")
+          a.button.is-link Create company
 </template>
 <script>
   import UserAPI from '#/UserAPI';
