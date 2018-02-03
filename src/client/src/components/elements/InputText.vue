@@ -31,9 +31,9 @@
         return !this.errors.has(this.label);
       }
     },
-    watch:{
-      value(){
-        this.data=this.value;
+    watch: {
+      value () {
+        this.data = this.value;
       }
     },
     props: {
@@ -58,10 +58,10 @@
         type: Boolean,
         default: false
       },
-      "value":{
-        type:String,
-        default:""
-      }
+      "value": {
+        type: String,
+        default: ""
+      },
     },
   }
 </script>
