@@ -4,10 +4,14 @@
       br
       div(v-if="haveEditRules").field.has-addons
         p.control
-          a.button.is-danger Видалити
-          a.button.is-warning Змінити
+          a.button.is-danger(@click.stop="handleDelete") Видалити
+          a.button.is-warning(@click.stop="handleEdit")  Змінити
       br
       user-card(:user="user")
+      br
+      div(v-if="$store.getters.isLogged()")
+        router-link(:to="{name:'Company.create'}")
+          a.button.is-link Create company
 </template>
 <script>
   import UserAPI from '#/UserAPI';
@@ -25,6 +29,26 @@
       }
     },
     methods: {
+      async handleDelete () {
+        this.$bus.$emit('load-start');
+        try {
+          const result = await UserAPI.remove(this.id);
+          if (result.data.success) {
+            if (this.id == this.$store.state.user.id) {
+              this.$bus.$emit('logout');
+            }
+            this.$router.push({name: 'Home'})
+          } else {
+            throw result.data.message
+          }
+        } catch (err) {
+          this.$messages.error(err, this);
+        }
+        this.$bus.$emit('load-end');
+      },
+      handleEdit () {
+
+      },
       urlHandle (query) {
         if (query.id) {
           this.id = query.id;
