@@ -1,11 +1,54 @@
 <template lang="pug">
   div#app
+    b-loading(:active="UI.isLoading")
+    app-login(ref="login")
+    app-register(ref="register")
+    app-header
+    router-view
     router-view
 </template>
 
 <script>
+  import AppLogin from '@elements/auth/Login';
+  import AppRegister from '@elements/auth/Register';
+  import AppHeader from '@elements/Header';
+
   export default {
-    name: 'App'
+    name: 'App',
+    components: {
+      AppLogin,
+      AppRegister,
+      AppHeader
+    },
+    data () {
+      return {
+        UI: {
+          isLoading: false
+        }
+      }
+    },
+    methods: {
+      loadStart () {
+        this.UI.isLoading = true;
+      },
+      loadEnd () {
+        this.UI.isLoading = false;
+      },
+      addEventHandlers () {
+        this.$bus.$on('load-start', this.loadStart);
+        this.$bus.$on('load-end', this.loadEnd);
+      },
+      removeEventHandlers () {
+        this.$bus.$off('load-start', this.loadStart);
+        this.$bus.$off('load-end', this.loadEnd);
+      }
+    },
+    mounted () {
+      this.addEventHandlers();
+    },
+    beforeDestroy () {
+      this.removeEventHandlers();
+    }
   }
 </script>
 

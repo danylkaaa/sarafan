@@ -41,8 +41,9 @@ module.exports = {
       "@utils": resolve('src/services/Utils.js'),
       "@API": resolve('src/services/API.js'),
       "@store": resolve('src/store/index.js'),
-      "@config":resolve('src/config.js'),
-      "@pages":resolve('src/components/pages'),
+      "@config": resolve('src/config.js'),
+      "@pages": resolve('src/components/pages'),
+      "@elements": resolve('src/components/elements'),
     }
   },
   module: {

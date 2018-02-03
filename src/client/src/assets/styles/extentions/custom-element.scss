@@ -1,0 +1,61 @@
+// import material's colors
+@import "~material-colors/dist/colors";
+// import Bulma's core
+@import "~bulma/sass/utilities/_all";
+// create custom styles
+@for $i from 0 through 100 {
+  .w-#{$i} {
+    width: $i*1%;
+  }
+}
+
+@for $i from 0 through 50 {
+  .round-corner-#{$i} {
+    border-radius: $i*1px;
+  }
+  .round-percent-#{$i} {
+    border-radius: $i*1%;
+  }
+}
+
+@for $space from 0 through 20 {
+  .round-corner-#{$space} {
+    border-radius: $space*1px;
+  }
+  .ma-#{$space} {
+    margin: $space*1px;
+  }
+  .pa-#{$space} {
+    padding: $space*1px;
+  }
+  .ml-#{$space} {
+    margin-left: $space*1px;
+  }
+  .pl-#{$space} {
+    padding-left: $space*1px;
+  }
+  .mr-#{$space} {
+    margin-right: $space*1px;
+  }
+  .pr-#{$space} {
+    padding-right: $space*1px;
+  }
+  .mt-#{$space} {
+    margin-top: $space*1px;
+  }
+  .pt-#{$space} {
+    padding-top: $space*1px;
+  }
+  .mb-#{$space} {
+    margin-bottom: $space*1px;
+  }
+  .pb-#{$space} {
+    padding-bottom: $space*1px;
+  }
+}
+
+// Import Bulma and Buefy styles
+@import "~bulma";
+@import "~bulma-slider";
+@import "~buefy/src/scss/buefy";
+
