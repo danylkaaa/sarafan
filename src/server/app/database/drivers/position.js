@@ -16,6 +16,9 @@ const get = {
     },
     byUser(userID) {
         return DB.methods.get.byQuery(Position, { user: userID });
+    },
+    byCompany(companyID) {
+        return DB.methods.get.byQuery(Position, { company: companyID });
     }
 }
 

@@ -46,6 +46,19 @@ router.get('/:id/invites', passport.authenticate(['access'], {session: false}), 
     }
 });
 
+router.get('/:id/positions', async (req, res, next) => {
+    let company = await CompanyDB.get.byID(req.params.id);
+
+    if (company) {
+        return res.json({
+            success: true,
+            item: await PositionDB.get.byCompany(company.id)
+        });
+    } else {
+        return Utils.sendError(res, 403, 'Forbidden');
+    }
+});
+
 router.post('/create', passport.authenticate(['access'], {session: false}), async (req, res, next) => {
     console.log(req.body)
     let {address, info, name} = req.body;
