@@ -1,22 +1,12 @@
-<template>
-    <div id="app">
-        <router-view/>
-    </div>
+<template lang="pug">
+  div#app
+    router-view
 </template>
 
 <script>
-    export default {
-        name: 'App',
-        created () {
-            FB.init({
-                appId: '917524868428631',
-                status: false,
-                cookie: false,
-                xfbml: false,
-                version: 'v2.8'
-            });
-        }
-    }
+  export default {
+    name: 'App'
+  }
 </script>
 
 <style>

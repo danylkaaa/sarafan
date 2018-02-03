@@ -1,5 +1,5 @@
-<template>
-    <button @click="$auth.login('facebook')">auth Facebook</button>
+<template lang="pug">
+
 </template>
 
 <script>
