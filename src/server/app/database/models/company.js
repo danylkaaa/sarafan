@@ -38,6 +38,10 @@ let Company = new Mongoose.Schema({
     info: {
         type: String,
         default: ``
+    },
+    name: {
+        type: String,
+        required: true
     }
 });
 
@@ -51,6 +55,11 @@ Company.methods.checkIsAdmin = function (id) {
     }
 
     return admin;
+}
+
+Company.methods.addStaff = function(staffID){
+    this.staff.push(staffID);
+    return this.save();
 }
 
 let companyModel = Mongoose.model('Company', Company);
