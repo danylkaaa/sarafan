@@ -40,8 +40,10 @@ let User = new Mongoose.Schema({
     },
     role: {
         type: String,
+        enum: [ 'user', 'admin' ],
         default: 'user'
-    },
+    }
+
 });
 /**
  * add plugin do schema
