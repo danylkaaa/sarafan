@@ -12,7 +12,7 @@ async function create(data) {
 
         let hash = jwt.sign({
             inviteID: invite.id,
-        }, process.env.JWT_TOKEN);
+        }, process.env.JWT_SECRET);
 
         //TODO send inviting
     } catch (error) {
