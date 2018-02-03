@@ -2,7 +2,6 @@
 const Mongoose = require('mongoose');
 const Utils = require('@utils');
 const config = require('@config');
-const validator = require('@validator');
 
 let Company = new Mongoose.Schema({
     address: {
@@ -48,3 +47,8 @@ let Company = new Mongoose.Schema({
         default: ``
     }
 });
+
+Company.plugin(require("mongoose-paginate"));
+
+let companyModel = Mongoose.model('Company', Company);
+module.exports = companyModel;
