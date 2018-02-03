@@ -7,25 +7,20 @@ const DBusers = require('@DBfolder/users');
 
 module.exports = function init () {
     passport.use('access', new BearerStrategy(
-        async
-
-    function (token, done) {
-        try {
-            const decode = Utils.tokens.decode('access', token);
-            const me = await
-            DBusers.get.byToken('access', decode);
-            if (me) {
-                return done(null, me);
-            } else {
-                return done(null, false);
+        async function (token, done) {
+            try {
+                const decode = Utils.tokens.decode('access', token);
+                const me = await DBusers.get.byToken('access', decode);
+                if (me) {
+                    return done(null, me);
+                } else {
+                    return done(null, false);
+                }
+            } catch (err) {
+                err.status = 400;
+                console.log('access', err);
+                return done(err);
             }
-        } catch (err) {
-            err.status = 400;
-            console.log('access', err);
-            return done(err);
         }
-    }
-
-))
-    ;
+    ));
 };

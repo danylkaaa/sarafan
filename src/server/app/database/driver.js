@@ -8,23 +8,17 @@ function connect () {
         useMongoClient: true,
         promiseLibrary: global.Promise
     });
-    database.on('error', error = > console.log(`-DB: connection failed: ${error}`)
-)
-    ;
-    database.on('connected', async() = > {
+    database.on('error', error => console.log(`-DB: connection failed: ${error}`));
+    database.on('connected', async () => {
         console.log(`+DB: connected` + (config.IS_DEV ? ` to ${config.DB_URL}` : ""));
-})
-    ;
-    database.on('disconnected', () = > console.log('-DB: disconnected')
-)
-    ;
-    process.on('SIGINT', () = > {
-        database.close(() = > {
-        console.log('+DB: connection closed');
-    process.exit(0);
-})
-})
-    ;
+    });
+    database.on('disconnected', () => console.log('-DB: disconnected'));
+    process.on('SIGINT', () => {
+        database.close(() => {
+            console.log('+DB: connection closed');
+            process.exit(0);
+        })
+    });
 }
 
 const methods = {
@@ -36,16 +30,14 @@ const methods = {
      */
     create (model, data) {
         let entity = new model(data);
-        return new Promise((resolve, reject) = > {
-            entity.save((err, id) = > {
-            if (err) {
-                reject(err);
-            }
-            else resolve(id);
-    })
-        ;
-    })
-        ;
+        return new Promise((resolve, reject) => {
+            entity.save((err, id) => {
+                if (err) {
+                    reject(err);
+                }
+                else resolve(id);
+            });
+        });
     },
     remove: {
         byID (model, id) {

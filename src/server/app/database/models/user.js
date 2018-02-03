@@ -5,61 +5,44 @@ const config = require('@config');
 const validator = require('@validator');
 
 let User = new Mongoose.Schema({
-        isUsedBasicAuth: {
-            required: true,
-            type: Boolean,
-            default: true
-        },
-        email:
-            {
-                type: String,
-                unique: true,
-                required: function () {
-                    return this.isUsedBasicAuth;
-                },
-                validate: {
-                    validator: (value) = > validator.user.email(value).valid,
+    isUsedBasicAuth: {
+        required: true,
+        type: Boolean,
+        default: true
+    },
+    email:
+        {
+            type: String,
+            unique: true,
+            required: function () {
+                return this.isUsedBasicAuth;
+            },
+            validate: {
+                validator: (value) => validator.user.email(value).valid,
                 message: "{VALUE} is not a valid email"
             },
+        },
+    password:
+        {
+            type: String,
+            required: function () {
+                return this.isUsedBasicAuth;
+            },
+        },
+    created: {
+        type: Date,
+        default: Date.now
     },
-    password
-:
-{
-    type: String,
-        required
-:
-
-    function () {
-        return this.isUsedBasicAuth;
-    }
-
-,
-}
-,
-created: {
-    type: Date,
-default:
-    Date.now
-}
-,
-facebook: {
-    id: String,
-        name
-:
-    String,
-        picture
-:
-    String
-}
-,
-role: {
-    type: String,
-default:
-    'user'
-}
-,
-})
-;
+    facebook: {
+        id: String,
+        name: String,
+        picture: String
+    },
+    role: {
+        type: String,
+        default: 'user'
+    },
+});
 /**
  * add plugin do schema
  */
@@ -75,23 +58,16 @@ User.index({email: 1}, {unique: true});
  * 1. Hash user's password
  * 2. Regenerate secrets
  */
-User.pre('save', async
-
-function (next) {
+User.pre('save', async function (next) {
     if (!this.isUsedBasicAuth && this.isNew) {
-        this.password = await
-        Utils.crypto.random(10);
+        this.password = await Utils.crypto.random(10);
         this.email = this.email || Mongoose.Types.ObjectId();
     }
     if (this.isModified('password') || this.isNew) {
-        this.password = await
-        Utils.crypto.hash(this.password, config.security.SERVER_SALT);
+        this.password = await Utils.crypto.hash(this.password, config.security.SERVER_SALT);
     }
     next();
-}
-
-)
-;
+});
 
 /**
  * compare, is this user, has such password

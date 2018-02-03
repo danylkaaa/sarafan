@@ -10,27 +10,22 @@ module.exports = function init () {
             clientSecret: config.auth.Facebook.SECRET,
             profileFields: ['id', 'email', 'gender', 'link', 'locale', 'name', 'timezone', 'updated_time', 'verified']
         },
-        async
+        async function (accessToken, refreshToken, data, done) {
+            console.log(JSON.stringify(data._json, null, 2));
+            try {
+                let profile = data["_json"];
+                const me = await DBusers.oauth.facebook(profile, accessToken, refreshToken);
+                if (me) {
+                    return done(null, me);
+                } else {
+                    return done(null, false);
+                }
 
-    function (accessToken, refreshToken, data, done) {
-        console.log(JSON.stringify(data._json, null, 2));
-        try {
-            let profile = data["_json"];
-            const me = await
-            DBusers.oauth.facebook(profile, accessToken, refreshToken);
-            if (me) {
-                return done(null, me);
-            } else {
-                return done(null, false);
+            } catch (err) {
+                err.status = 400;
+                console.log('facebook', err);
+                return done(err);
             }
-
-        } catch (err) {
-            err.status = 400;
-            console.log('facebook', err);
-            return done(err);
         }
-    }
-
-))
-    ;
+    ));
 };

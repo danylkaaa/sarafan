@@ -1,8 +1,6 @@
 const Utils = require('@utils');
 
-module.exports = (res, err) =
->
-{
+module.exports = (res, err) => {
     switch (err.name) {
         case 'ValidationError':
             return Utils.sendError(res, 400, onValidationError(err));
@@ -13,8 +11,7 @@ module.exports = (res, err) =
         default:
             return Utils.sendError(res, 500, "Server error");
     }
-}
-;
+};
 
 function onValidationError (err) {
     let msg = [];
