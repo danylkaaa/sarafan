@@ -30,11 +30,12 @@ router.get('/:id', async (req, res, next) => {
 });
 
 router.post('/create', passport.authenticate('access'), async (req, res, next) => {
-    let { address, info } = req.body;
+    let { address, info, name } = req.body;
 
     let data = {
         address,
         info,
+        name,
         administration: req.user.id
     };
 
