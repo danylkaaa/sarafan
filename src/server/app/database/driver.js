@@ -11,6 +11,7 @@ function connect () {
     database.on('error', error => console.log(`-DB: connection failed: ${error}`));
     database.on('connected', async () => {
         console.log(`+DB: connected` + (config.IS_DEV ? ` to ${config.DB_URL}` : ""));
+        
     });
     database.on('disconnected', () => console.log('-DB: disconnected'));
     process.on('SIGINT', () => {
