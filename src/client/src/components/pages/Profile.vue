@@ -4,8 +4,8 @@
       br
       div(v-if="haveEditRules").field.has-addons
         p.control
-          a.button.is-danger Видалити
-          a.button.is-warning Змінити
+          a.button.is-danger(@click.stop="handleDelete") Видалити
+          a.button.is-warning(@click.stop="handleEdit")  Змінити
       br
       user-card(:user="user")
 </template>
@@ -25,6 +25,23 @@
       }
     },
     methods: {
+      async handleDelete () {
+        this.$bus.$emit('load-start');
+        try {
+          const result = await UserAPI.delete(this.id);
+          if (result.data.success) {
+            this.$router.push({name: 'Home'})
+          } else {
+            throw result.data.message
+          }
+        } catch (err) {
+          this.$messages.error(err, this);
+        }
+        this.$bus.$emit('load-end');
+      },
+      handleEdit () {
+
+      },
       urlHandle (query) {
         if (query.id) {
           this.id = query.id;
