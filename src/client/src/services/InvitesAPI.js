@@ -11,6 +11,11 @@ export default {
       .access()
       .get(`/api/v1/company/${id}/invites`);
   },
+  loadByUser (id) {
+    return API
+      .access()
+      .get(`/api/v1/user/${id}/invites`);
+  },
   create(id,args){
     return API
       .access()

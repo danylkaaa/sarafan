@@ -1,25 +1,26 @@
 <template lang="pug">
   div.container
-    div(v-if="user")
-      br
-      div(v-if="haveEditRules").field.has-addons
-        p.control
-          a.button.is-danger(@click.stop="handleDelete") Видалити
-          a.button.is-warning(@click.stop="handleEdit")  Змінити
-      br
-      user-card(:user="user")
-      br
-      div(v-if="$store.getters.isLogged()")
+    br
+    div.field.has-addons
+      p.control
+        a.button.is-danger(@click.stop="handleDelete", v-if="haveEditRules") Видалити
+        a.button.is-warning(@click.stop="handleEdit", v-if="haveEditRules")  Змінити
         router-link(:to="{name:'Company.create'}")
-          a.button.is-link Create company
+          a.button.is-link Створити компанію
+    b-tabs(v-if="user")
+      b-tab-item(label="Інформація")
+        user-card(:user="user")
+      b-tab-item(label="Запрошення", v-if="haveEditRules")
+        user-invites(:user="user")
 </template>
 <script>
   import UserAPI from '#/UserAPI';
   import UserCard from '@elements/user/UserFull';
-
+  import UserInvites from '@elements/user/UserInvites';
   export default {
     components: {
       UserCard,
+      UserInvites
     },
     name: 'profile',
     data () {
