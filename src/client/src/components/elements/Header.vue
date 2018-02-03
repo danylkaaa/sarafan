@@ -14,14 +14,18 @@
             header-link(v-for="(link, i) in links", :key="i", :link="link",
             v-if="!('condition' in link) || link.condition()")
 
+    star-rater
 </template>
 
 <script>
   import links from './headerLinks/links';
   import HeaderLink from './headerLinks/HeaderLink'
+  import StarRater from './StarRater'
+
 
   export default {
     components: {
+      StarRater,
       HeaderLink
     },
     name: "app-header",
