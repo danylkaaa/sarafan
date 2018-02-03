@@ -26,7 +26,6 @@ async function loginFacebook () {
 }
 
 async function loginBasic (credentials) {
-  console.log('try to send')
   try {
     const response = await AuthAPI.login(credentials);
     if (response.data.success) {
@@ -50,7 +49,6 @@ function clearUserInfo () {
 }
 
 async function registerBasic (credentials) {
-  console.log('try to send')
   try {
     const response = await AuthAPI.register(credentials);
     if (response.data.success) {

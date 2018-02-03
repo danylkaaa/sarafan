@@ -3,7 +3,7 @@ import {$bus} from '#/plugins/Bus';
 
 let buttons = [];
 buttons.push({
-  title: "Login",
+  title: "Уввійти",
   class: "is-hidden-desktop",
   handler: () => {
     $bus.$emit('login');
@@ -12,11 +12,11 @@ buttons.push({
     name: "sign-in",
     pack: "fa"
   },
-  tooltip: "Enter to your account",
+  tooltip: "Уввійти до акаунту",
   condition: () => !$store.getters.isLogged()
 })
 buttons.push({
-  title: "Register",
+  title: "Реєстрація",
   class: "is-hidden-desktop",
   handler: () => {
     $bus.$emit('register');
@@ -25,11 +25,11 @@ buttons.push({
     name: "account",
     pack: "mdi"
   },
-  tooltip: "Create new account",
+  tooltip: "Створити акаунт",
   condition: () => !$store.getters.isLogged()
 })
 buttons.push({
-  title: "Logout",
+  title: "Вийти",
   class: "is-hidden-desktop",
   handler: () => {
     $bus.$emit('logout');
@@ -38,7 +38,23 @@ buttons.push({
     name: "sign-out",
     pack: "fa"
   },
-  tooltip: "Exit from your account",
+  tooltip: "Вийти з акаунту",
   condition: () => $store.getters.isLogged()
 })
+buttons.push(
+  {
+    title: "Сторінка",
+    class: "is-hidden-desktop",
+    icon: {
+      name: "user",
+      pack: "fa"
+    },
+    to: {
+      name: 'Profile'
+    },
+
+    tooltip: "Ваш персональна сторінка",
+    condition: () => $store.getters.isLogged()
+  }
+)
 export default buttons;

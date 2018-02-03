@@ -5,7 +5,6 @@
     app-register(ref="register")
     app-header
     router-view
-    router-view
 </template>
 
 <script>

@@ -50,7 +50,7 @@
       },
       async loginBasic () {
         if (this.isValidCredentials()) {
-          if(await this.$auth.login('basic', this.credentials)){
+          if (await this.$auth.login('basic', this.credentials)) {
             this.toggle();
           }
         } else {
