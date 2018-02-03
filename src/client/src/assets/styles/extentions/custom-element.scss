@@ -2,6 +2,21 @@
 @import "~material-colors/dist/colors";
 // import Bulma's core
 @import "~bulma/sass/utilities/_all";
+
+$facebook: #3b5998;
+$facebook-invert: #fff;
+$twitter: #55acee;
+$twitter-invert: findColorInvert($twitter);
+
+$addColors: (
+  "twitter":($twitter, $twitter-invert),
+  "facebook": ($facebook, $facebook-invert),
+);
+$colors: map-merge($colors, $addColors);
+
+// Add a serif family
+$family-serif: "Merriweather", "Georgia", serif;
+
 // create custom styles
 @for $i from 0 through 100 {
   .w-#{$i} {

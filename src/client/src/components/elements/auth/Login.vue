@@ -1,4 +1,28 @@
 <template lang="pug">
+  b-modal.modal(
+  v-if="!$store.isLogged",
+  :active.sync="UI.isShown",
+  scroll="keep",
+  animation="zoom-out",
+  width="400px")
+    div.box.has-text-centered
+      figure.avatar
+        img.avatar-image(src="/static/img/user.png", width="140px", alt="")
+      h3.title.has-text-grey Увійти
+      p.subtitle.has-text-grey До свого акаунту
+      form.has-text-left
+        input-text(label="email", ref="email",placeholder="Ваш email",:rules="{required:true, email:true}", icon="email", type="email")
+        input-text(label="password", ref="password",placeholder="Ваш пароль", :rules="{required:true}",icon="lock", :reveal="true", type="password")
+      br
+      a.button.is-info.is-medium.is-block(@click="loginHandler('basic')") Увійти
+      br
+      button.button.is-fullwidth.is-medium.is-facebook.is-block(@click="loginHandler('facebook')")
+        b-icon(pack="fa" icon="facebook")
+        span Facebook
+      hr
+      p.has-text-grey.is-size-6
+      a(@click.register="register") Sign Up
+      span &nbsp;·&nbsp;
 
 </template>
 
@@ -13,15 +37,44 @@
     data () {
       return {
         UI: {
-          isShown: false,
-          isLoading: false
+          isShown: false
         }
       }
     },
     methods: {
-
+      toggle () {
+        this.UI.isShown = !this.UI.isShown;
+      },
+      async loginBasic () {
+        // if (this.isValidCredentials()) {
+        //   await this.login(this.credentials);
+        // } else {
+        //   this.showErrorBox("Looks like, there are some problems with your input");
+        // }
+      },
+      async loginFacebook () {
+        await this.$auth.login('facebook');
+      },
+      async loginHandler (type) {
+        this.$bus.$emit('load-start');
+        try {
+          if (type == 'facebook') {
+            await this.loginFacebook();
+          } else {
+            await this.loginBasic();
+          }
+        } catch (err) {
+          this.$messages.error(err,this)
+        }
+        this.$bus.$emit('load-end');
+      }
     },
-
+    mounted () {
+      this.$bus.$on('login', this.toggle)
+    },
+    destroyed () {
+      this.$bus.$off('login', this.toggle)
+    }
   }
 </script>
 

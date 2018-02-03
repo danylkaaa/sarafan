@@ -1,4 +1,28 @@
 <template lang="pug">
+  b-modal.modal(
+  v-if="!$store.isLogged",
+  :active.sync="UI.isShown",
+  scroll="keep",
+  animation="zoom-out",
+  width="400px")
+    div.box.has-text-centered
+      figure.avatar
+        img.avatar-image(src="/static/img/user.png", width="140px", alt="")
+      h3.title.has-text-grey Реєстрація
+      p.subtitle.has-text-grey Зроби країну кращую вже сьогодні
+      form.has-text-left
+        input-text(label="email", ref="email",placeholder="Ваш дійсний email",:rules="{required:true, email:true}", icon="email", type="email")
+        input-text(label="password", ref="password",placeholder="Ваш пароль", :rules="{required:true}",icon="lock", :reveal="true", type="password")
+      br
+      a.button.is-info.is-medium.is-block(@click="registerHandler('basic')") Зареєструватися
+      br
+      button.button.is-fullwidth.is-medium.is-facebook.is-block(@click="registerHandler('facebook')")
+        b-icon(pack="fa" icon="facebook")
+        span Facebook
+      hr
+      p.has-text-grey.is-size-6 Вже зареєстровані?
+        br
+        a(@click.register="register") Уввійти
 
 </template>
 
@@ -13,15 +37,21 @@
     data () {
       return {
         UI: {
-          isShown: false,
-          isLoading: false
+          isShown: false
         }
       }
     },
     methods: {
-
+      toggle () {
+        this.UI.isShown = !this.UI.isShown;
+      }
     },
-
+    mounted () {
+      this.$bus.$on('register', this.toggle)
+    },
+    destroyed () {
+      this.$bus.$off('register', this.toggle)
+    }
   }
 </script>
 
