@@ -49,7 +49,7 @@ router.get('/:id/positions', async (req, res, next) => {
 });
 
 router.get('/:id/invites', async (req, res, next) => {
-    
+
 });
 
 

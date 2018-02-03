@@ -1,6 +1,9 @@
 <template lang="pug">
   div
     div.box
+      p.title Назва
+      input-text(label="name", ref="name",placeholder="Назва", :rules="{required:true}", :value="company.name")
+    div.box
       p.title Адреса
       input-text(label="area", ref="area",placeholder="Область", :rules="{required:true}", :value="company.address.area")
       input-text(label="city", ref="city",placeholder="Місто", :rules="{required:true}", :value="company.address.city")
@@ -27,6 +30,7 @@
           street: this.$refs.street.data,
           building: this.$refs.building.data
         }
+        this.company.name=this.$refs.name.data;
         this.company.info = this.$refs.info.data;
         return this.company;
       },
@@ -35,7 +39,8 @@
           && this.$refs.city.isValid
           && this.$refs.street.isValid
           && this.$refs.building.isValid
-          && this.$refs.info.isValid;
+          && this.$refs.info.isValid
+          && this.$refs.name.isValid;
       }
     },
     props: {

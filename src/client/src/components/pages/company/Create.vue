@@ -38,7 +38,7 @@
           console.log(result.data.item)
           if (result.data.success) {
             this.$messages.success('Created', this);
-            this.$router.push({name: 'Company', params: {id: result.data.item.id}});
+            this.$router.push({name: 'Company.view', params: {id: result.data.item._id}});
           } else {
             throw result.data.message;
           }

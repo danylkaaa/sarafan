@@ -8,30 +8,34 @@ const CompanyDB = require('@DBfolder/company');
 const InviteDB = require('@DBfolder/invite');
 
 router.get('/:id', async (req, res, next) => {
-    let company = await CompanyDB.get.byID(req.params.id);
+    try {
+        let company = await CompanyDB.get.byID(req.params.id);
+        if (company) {
+            let {address, administration, staff, info, name} = company;
 
-    if (company) {
-        let {address, administration, staff, info} = company;
+            let data = {
+                address,
+                administration,
+                staff,
+                name,
+                info
+            }
 
-        let data = {
-            address,
-            administration,
-            staff,
-            info
+            return res.json({
+                success: true,
+                item: data
+            });
+        } else {
+            return Utils.sendError(res, 404, 'Not found');
         }
-
-        return res.json({
-            success: true,
-            item: data
-        });
-    } else {
-        return Utils.sendError(res, 404, 'Not found');
+    } catch (err) {
+        return Utils.sendError(res, 500, err);
     }
 });
 
 router.post('/create', passport.authenticate(['access'], {session: false}), async (req, res, next) => {
     console.log(req.body)
-    let {address, info} = req.body;
+    let {address, info, name} = req.body;
     let data = {
         address,
         info,
