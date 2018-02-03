@@ -12,7 +12,6 @@
   import AppLogin from '@elements/auth/Login';
   import AppRegister from '@elements/auth/Register';
   import AppHeader from '@elements/Header';
-  import QR from '@elements/qr'
 
   export default {
     name: 'App',

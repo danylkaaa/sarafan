@@ -10,7 +10,7 @@ async function create (data) {
 const get = {
     oauth: {
         byFacebookID (id) {
-            return DB.methods.get.oneByQuery(User, {facebook: {id: id}});
+            return DB.methods.get.oneByQuery(User, {"facebook.id": id});
         }
     },
     async byToken (name, token) {

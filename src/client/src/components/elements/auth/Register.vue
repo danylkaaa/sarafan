@@ -42,6 +42,37 @@
       }
     },
     methods: {
+      isValidCredentials () {
+        return (!this.$refs.email || this.$refs.email.isValid) && (!this.$refs.password || this.$refs.password.isValid);
+      },
+      async registerFacebook () {
+        if (await this.$auth.login('facebook')) {
+          this.toggle();
+        }
+      },
+      async registerHandler (type) {
+        this.$bus.$emit('load-start');
+        try {
+          if (type == 'facebook') {
+            await this.registerFacebook();
+          } else {
+            await this.registerBasic();
+          }
+        } catch (err) {
+          this.$messages.error(err, this)
+        }
+        this.$bus.$emit('load-end');
+      },
+      async registerBasic () {
+        if (this.isValidCredentials()) {
+          console.log(1)
+          if (await this.$auth.register('basic', this.credentials)) {
+            this.toggle();
+          }
+        } else {
+          this.$messages.error("Looks like, there are some problems with your input", this);
+        }
+      },
       toggle () {
         this.UI.isShown = !this.UI.isShown;
       }
@@ -51,6 +82,14 @@
     },
     destroyed () {
       this.$bus.$off('register', this.toggle)
+    },
+    computed: {
+      credentials () {
+        return {
+          email: this.$refs.email.data,
+          password: this.$refs.password.data
+        }
+      }
     }
   }
 </script>

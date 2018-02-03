@@ -5,7 +5,7 @@ import $config from '@config';
 export default {
   basic (username, password) {
     let args = {};
-    args.baseURL = config.SERVER_URL;
+    args.baseURL = $config.SERVER_URL;
     args.auth = {
       username: username,
       password: password

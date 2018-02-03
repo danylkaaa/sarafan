@@ -20,9 +20,9 @@
         b-icon(pack="fa" icon="facebook")
         span Facebook
       hr
-      p.has-text-grey.is-size-6
-      a(@click.register="register") Sign Up
-      span &nbsp;·&nbsp;
+      p.has-text-grey.is-size-6 "Вперше на Сарафані?"
+        br
+        a(@click.register="register") Зареєструватися
 
 </template>
 
@@ -45,15 +45,22 @@
       toggle () {
         this.UI.isShown = !this.UI.isShown;
       },
+      isValidCredentials () {
+        return (!this.$refs.email || this.$refs.email.isValid) && (!this.$refs.password || this.$refs.password.isValid);
+      },
       async loginBasic () {
-        // if (this.isValidCredentials()) {
-        //   await this.login(this.credentials);
-        // } else {
-        //   this.showErrorBox("Looks like, there are some problems with your input");
-        // }
+        if (this.isValidCredentials()) {
+          if(await this.$auth.login('basic', this.credentials)){
+            this.toggle();
+          }
+        } else {
+          this.$messages.error("Looks like, there are some problems with your input", this);
+        }
       },
       async loginFacebook () {
-        await this.$auth.login('facebook');
+        if (await this.$auth.login('facebook')) {
+          this.toggle();
+        }
       },
       async loginHandler (type) {
         this.$bus.$emit('load-start');
@@ -64,7 +71,7 @@
             await this.loginBasic();
           }
         } catch (err) {
-          this.$messages.error(err,this)
+          this.$messages.error(err, this)
         }
         this.$bus.$emit('load-end');
       }
@@ -74,6 +81,14 @@
     },
     destroyed () {
       this.$bus.$off('login', this.toggle)
+    },
+    computed: {
+      credentials () {
+        return {
+          email: this.$refs.email.data,
+          password: this.$refs.password.data
+        }
+      }
     }
   }
 </script>
