@@ -16,7 +16,8 @@
     "@utils": "./src/server/app/services/utils/index.js",
     "@APIv1": "./src/server/routes/api/v1/index.js",
     "@validator": "./src/server/app/services/validator/index.js",
-    "@errorHandler": "./src/server/app/services/errorHandler.js"
+    "@errorHandler": "./src/server/app/services/errorHandler.js",
+    "@mailer": "./src/server/app/services/mailer.js"
   },
   "dependencies": {
     "body-parser": "~1.18.2",
@@ -43,6 +44,7 @@
     "mongoose-paginate": "^5.0.3",
     "morgan": "~1.9.0",
     "node-sass": "^4.7.2",
+    "nodemailer": "^4.4.2",
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",
     "passport-facebook-token": "^3.3.0",
