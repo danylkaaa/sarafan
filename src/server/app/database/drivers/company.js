@@ -26,6 +26,12 @@ const remove = {
     }
 };
 
+const update = {
+    byID(id, data) {
+        return DB.methods.update.byID(Company, id, data);
+    }
+}
+
 module.exports = {
     create,
     get,

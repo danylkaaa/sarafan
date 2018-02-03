@@ -29,17 +29,10 @@ let Company = new Mongoose.Schema({
     },
     staff: {
         type: [Mongoose.Schema.Types.ObjectId],
-        required: true,
-        default: []
-    },
-    moderators: {
-        type: [Mongoose.Schema.Types.ObjectId],
-        required: true,
         default: []
     },
     invites: {
         type: [Mongoose.Schema.Types.ObjectId],
-        required: true,
         default: []
     },
     info: {
@@ -49,6 +42,16 @@ let Company = new Mongoose.Schema({
 });
 
 Company.plugin(require("mongoose-paginate"));
+
+Company.methods.checkIsAdmin = function (id) {
+    let admin = false;
+
+    for(let userID of this.administration){
+        if(id == userID) admin = true;
+    }
+
+    return admin;
+}
 
 let companyModel = Mongoose.model('Company', Company);
 module.exports = companyModel;

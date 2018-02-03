@@ -8,17 +8,17 @@ let Invite = new Mongoose.Schema({
         type: Mongoose.Schema.Types.ObjectId,
         required: true
     },
+    to: {
+        type: Mongoose.Schema.Types.ObjectId,
+        required: true
+    },
     date: {
         type: Date,
         default: Date.now
     },
-    hash: {
+    role: {
         type: String,
         required: true
-    },
-    info: {
-        type: String,
-        default: ''
     }
 });
 

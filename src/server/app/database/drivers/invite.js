@@ -2,9 +2,22 @@ const DB = require('@DB');
 const Utils = require('@utils');
 const config = require('@config');
 const Invite = require('../models/invite');
+const jwt = require('jsonwebtoken');
 
-function create(data) {
-    return DB.methods.create(Invite, data);
+async function create(data) {
+    try {
+        await Invite.create(data);
+
+        let invite = await Intive.get.byQuery(data);
+
+        let hash = jwt.sign({
+            inviteID: invite.id,
+        }, process.env.JWT_TOKEN);
+
+        //TODO send inviting
+    } catch (error) {
+        throw error;
+    }
 }
 
 const get = {
