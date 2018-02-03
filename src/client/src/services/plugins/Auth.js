@@ -28,9 +28,16 @@ function saveUserInfo (data) {
   $store.dispatch('LOGIN', data);
 }
 
+function clearUserInfo () {
+  $store.dispatch('LOGOUT');
+}
+
 export default {
   install (Vue) {
     Vue.prototype.$auth = {
+      logout () {
+        clearUserInfo();
+      },
       login (type, credentials) {
         switch (type) {
           case 'facebook':

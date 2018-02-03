@@ -3,7 +3,7 @@
     nav.navbar.is-white(role="navigation" aria-label="main navigation")
       div.container
         div.navbar-brand
-          span.navbar-item
+          router-link(:to="{name:'Home'}").navbar-item
             img(src="/static/img/logo.png" alt="Сарафан" width="150" height="60")
         a.navbar-burger.burger.round-percent-50(data-target="menu", ref="burger", @click="showAllMenu()")
           span

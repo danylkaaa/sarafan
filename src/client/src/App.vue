@@ -37,10 +37,12 @@
       addEventHandlers () {
         this.$bus.$on('load-start', this.loadStart);
         this.$bus.$on('load-end', this.loadEnd);
+        this.$bus.$on('logout', this.$auth.logout);
       },
       removeEventHandlers () {
         this.$bus.$off('load-start', this.loadStart);
         this.$bus.$off('load-end', this.loadEnd);
+        this.$bus.$off('logout', this.$auth.logout);
       }
     },
     mounted () {
