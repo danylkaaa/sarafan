@@ -2,12 +2,13 @@ export default {
   install (Vue) {
     Vue.prototype.$messages = {
       error (err, Vue) {
-        console.log(err)
         let msg = "Something is going wrong";
-        if (typeof msg == 'string') {
+        if (typeof err == 'string') {
           msg = err;
         } else if (err.data && err.data.message) {
           msg = err.data.message;
+        } else if (err.response && err.response.data && err.response.data.message) {
+          msg = err.response.data.message;
         } else if (err.message) {
           msg = err.message;
         }
