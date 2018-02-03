@@ -29,15 +29,9 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
-<<<<<<< HEAD
-router.post('/create', passport.authenticate('access'), async (req, res, next) => {
-    let { address, info, name } = req.body;
-=======
 router.post('/create', passport.authenticate(['access'], {session: false}), async (req, res, next) => {
     console.log(req.body)
     let {address, info} = req.body;
->>>>>>> 5a1f4cccfa52f0f9805208689043d3b2dd48ea16
-
     let data = {
         address,
         info,

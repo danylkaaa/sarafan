@@ -3,6 +3,7 @@
 </template>
 <script>
   import CompanyAPI from '#/CompanyAPI';
+
   export default {
     data () {
       return {
@@ -60,10 +61,8 @@
         }
       },
       props: [],
-      created () {
-
-      }
     }
+  }
 </script>
 <style scoped lang="scss">
 </style>
