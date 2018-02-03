@@ -6,5 +6,5 @@ module.exports = {
     errors: require('./errors'),
     sendError: require('./sendError'),
     files: require('./files'),
-    converter: require('./converter'),
+    converter: require('./converter')
 };

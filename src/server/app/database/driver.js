@@ -1,5 +1,6 @@
 const config = require('@config');
 const mongoose = require('mongoose');
+const Utils = require('@utils');
 
 function connect () {
     const database = mongoose.connection;
