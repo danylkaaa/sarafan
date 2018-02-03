@@ -79,6 +79,11 @@ const methods = {
         }
 
     },
+    update: {
+        byID(model, id, data) {
+            return model.findByIdAndUpdate(id, data).exec();
+        }
+    }
 };
 
 module.exports = {
