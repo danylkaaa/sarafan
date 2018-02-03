@@ -110,14 +110,15 @@ router.post('/:id/invite', passport.authenticate(['access'], {session: false}), 
 
     if (company) {
         if (company.checkIsAdmin(req.user.id)) {
-            await InviteDB.create({
+            let invite = await InviteDB.create({
                 from: company.id,
                 to: req.body.userID,
                 role: req.body.role
             });
 
             return res.json({
-                success: true
+                success: true,
+                item: invite
             });
         } else {
             return Utils.sendError(res, 403, 'Forbidden');
