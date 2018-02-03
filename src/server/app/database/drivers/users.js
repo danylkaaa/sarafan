@@ -10,7 +10,7 @@ async function create (data) {
 const get = {
     oauth: {
         byFacebookID (id) {
-            return DB.methods.get.oneByQuery(User, {facebook: {id: id}});
+            return DB.methods.get.oneByQuery(User, {"facebook.id": id});
         }
     },
     async byToken (name, token) {
@@ -24,6 +24,9 @@ const get = {
         } else {
             return null;
         }
+    },
+    async byID (id) {
+        return DB.methods.get.byID(User, id);
     },
     async byEmail (email) {
         return DB.methods.get.oneByQuery(User, {email: email});
@@ -48,25 +51,16 @@ const oauth = {
         if (user) {
             return user;
         }
-        console.log(2);
-        if (profile.email) {
-            user = await get.byEmail(profile.email);
-            if (user) {
-                user.facebook = {
-                    id: profile.id,
-                    name: `${profile.last_name} ${profile.first_name}`
-                };
-                await user.save();
-                return user;
-            }
-        }
         console.log(3);
         return create({
-            isUsedBasicAuth: false,
             email: profile.email,
+            name: `${profile.last_name} ${profile.first_name}`,
+            picture: `https://graph.facebook.com/v2.12/${profile.id}/picture?access_token&width=400`,
             facebook: {
+                access:access,
+                refresh:refresh,
+                link: profile.link,
                 id: profile.id,
-                name: `${profile.last_name} ${profile.first_name}`
             }
         })
     }

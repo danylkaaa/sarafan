@@ -11,5 +11,10 @@ let rules = {
             message: `'${$data}' is not valid email`,
         }
     },
+    name($data){
+        return {
+            valid:true
+        }
+    }
 };
 module.exports = rules;

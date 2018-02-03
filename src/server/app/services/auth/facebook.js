@@ -8,7 +8,7 @@ module.exports = function init () {
     passport.use('facebook', new FacebookTokenStrategy({
             clientID: config.auth.Facebook.ID,
             clientSecret: config.auth.Facebook.SECRET,
-            profileFields: ['id', 'email', 'gender', 'link', 'locale', 'name', 'timezone', 'updated_time', 'verified']
+            profileFields: ['id', 'email', 'name', 'link','picture']
         },
         async function (accessToken, refreshToken, data, done) {
             console.log(JSON.stringify(data._json, null, 2));

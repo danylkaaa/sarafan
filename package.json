@@ -16,10 +16,14 @@
     "@utils": "./src/server/app/services/utils/index.js",
     "@APIv1": "./src/server/routes/api/v1/index.js",
     "@validator": "./src/server/app/services/validator/index.js",
-    "@errorHandler": "./src/server/app/services/errorHandler.js"
+    "@errorHandler": "./src/server/app/services/errorHandler.js",
+    "@mailer": "./src/server/app/services/mailer.js"
   },
   "dependencies": {
     "body-parser": "~1.18.2",
+    "buefy": "^0.6.3",
+    "bulma": "^0.6.2",
+    "bulma-extensions": "^0.7.5",
     "busboy": "^0.2.14",
     "busboy-body-parser": "^0.3.1",
     "consign": "^0.1.6",
@@ -30,17 +34,30 @@
     "dotenv": "^4.0.0",
     "express": "~4.15.5",
     "file-type": "^7.5.0",
+    "font-awesome": "^4.7.0",
     "jsonwebtoken": "^8.1.1",
+    "keen-ui": "^1.0.1",
+    "material-colors": "^1.2.5",
+    "mdi": "^2.1.19",
     "module-alias": "^2.0.3",
     "mongoose": "^4.13.9",
     "mongoose-paginate": "^5.0.3",
     "morgan": "~1.9.0",
+    "node-sass": "^4.7.2",
+    "nodemailer": "^4.4.2",
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",
     "passport-facebook-token": "^3.3.0",
     "passport-http": "^0.3.0",
     "passport-http-bearer": "^1.0.1",
-    "serve-favicon": "~2.4.5"
+    "pug": "^2.0.0-rc.4",
+    "pug-loader": "^2.3.0",
+    "qrcode.vue": "^1.5.2",
+    "sass-loader": "^6.0.6",
+    "serve-favicon": "~2.4.5",
+    "vue-material-design-icons": "^1.0.0",
+    "vue-ripple-directive": "^2.0.1",
+    "vue-validate": "^1.0.1"
   },
   "devDependencies": {
     "nodemon": "^1.14.11"
