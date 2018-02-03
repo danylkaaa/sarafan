@@ -35,7 +35,6 @@
     "express": "~4.15.5",
     "file-type": "^7.5.0",
     "font-awesome": "^4.7.0",
-    "jsonwebtoken": "^8.1.1",
     "keen-ui": "^1.0.1",
     "material-colors": "^1.2.5",
     "mdi": "^2.1.19",
