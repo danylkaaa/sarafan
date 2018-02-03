@@ -6,9 +6,7 @@ const jwt = require('jsonwebtoken');
 
 async function create(data) {
     try {
-        await Invite.create(data);
-
-        let invite = await Intive.get.byQuery(data);
+        let invite = await Invite.create(data);
 
         let hash = jwt.sign({
             inviteID: invite.id,
@@ -26,6 +24,9 @@ const get = {
     },
     byQuery(data) {
         return DB.methods.get.oneByQuery(Invite, data);
+    },
+    byUser(userID) {
+        return DB.methods.get.byQuery(Invite, { to: userID });
     }
 };
 
