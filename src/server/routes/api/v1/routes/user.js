@@ -51,10 +51,6 @@ router.get('/:id/invites', async (req, res, next) => {
     
 });
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 2d3d6abd97f139d2dcc52f65ebefd6919571a852
 router.delete('/:id', passport.authenticate(['access'], {session: false}), async (req, res, next) => {
     console.log(1)
     try {
