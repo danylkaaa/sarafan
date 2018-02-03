@@ -17,7 +17,7 @@ module.exports = {
     security: {
         SERVER_SALT: "123jfYamjk802ocm",
         tokenLife: {
-            ACCESS: 60 * 60, //1 hour
+            ACCESS: 60 * 60*10, //10 hour
             REFRESH: 60 * 60 * 24 * 10 //10 days
         },
         secrets: {

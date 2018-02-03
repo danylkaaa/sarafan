@@ -9,4 +9,10 @@ config.auth = {
     SCOPE: 'public_profile, email',
   }
 };
+config.roles=[
+  "програміст",
+  "лікар",
+  "вчитель",
+  "прибиральник"
+]
 export default config;

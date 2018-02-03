@@ -6,6 +6,8 @@
       section
         b-field(label="Ім'я")
           b-input(:value="user.name", readonly, icon="account")
+        b-field(label="ID")
+          b-input(:value="user.id||user._id", readonly, icon="number")
         b-field(label="Електрона адреса")
           b-input(:value="user.email", readonly, icon="email")
         b-field(label="Зареєстрований")
