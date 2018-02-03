@@ -27,6 +27,9 @@ const get = {
     },
     byUser(userID) {
         return DB.methods.get.byQuery(Invite, { to: userID });
+    },
+    byCompany(companyID) {
+        return DB.methods.get.byQuery(Invite, { from: companyID });
     }
 };
 
