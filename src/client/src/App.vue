@@ -5,21 +5,22 @@
     app-register(ref="register")
     app-header
     router-view
-    router-view
+    q-r
 </template>
 
 <script>
   import AppLogin from '@elements/auth/Login';
   import AppRegister from '@elements/auth/Register';
   import AppHeader from '@elements/Header';
-  import QR from '@elements/qr';
+  import QR from '@elements/qr'
 
   export default {
     name: 'App',
     components: {
       AppLogin,
       AppRegister,
-      AppHeader
+      AppHeader,
+      QR
     },
     data () {
       return {
