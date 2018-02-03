@@ -22,8 +22,7 @@ const get = {
     return user;
 }
 ,
-async
-byCredentials(email, password)
+async byCredentials(email, password)
 {
     let user = await
     DB.methods.get.oneByQuery(User, {email: email});
@@ -38,8 +37,7 @@ else
     }
 }
 ,
-async
-byEmail(email)
+async byEmail(email)
 {
     return DB.methods.get.oneByQuery(User, {email: email});
 }
