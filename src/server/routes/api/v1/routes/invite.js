@@ -17,13 +17,13 @@ router.post('/:token', passport.authenticate('access'), async (req, res, next) =
         let { inviteID } = decoded;
         let invite = await InviteDB.get.byID(inviteID);
 
-        if(invite){
-            if(req.user.id != invite.to) return Utils.sendError(res, 403, 'Forbidden');
-            
+        if (invite) {
+            if (req.user.id != invite.to) return Utils.sendError(res, 403, 'Forbidden');
+
             let user = UserDB.get.byID(invite.to);
             let company = CompanyDB.get.byID(invite.from);
 
-            if(user && company) {
+            if (user && company) {
 
                 let data = {
                     company: company.id,
@@ -44,6 +44,30 @@ router.post('/:token', passport.authenticate('access'), async (req, res, next) =
             } else {
                 return Utils.sendError(res, 404, 'Not found');
             }
+        } else {
+            return Utils.sendError(res, 404, 'Not found');
+        }
+
+    } catch (error) {
+        return Utils.sendError(res, 403, 'Forbidden');
+    };
+});
+
+router.post('/:token', passport.authenticate('access'), async (req, res, next) => {
+    try {
+        let decoded = jwt.verify(req.params.token, process.env.JWT_SECRET);
+
+        let { inviteID } = decoded;
+        let invite = await InviteDB.get.byID(inviteID);
+
+        if (invite) {
+            if (req.user.id != invite.to) return Utils.sendError(res, 403, 'Forbidden');
+
+            await InviteDB.remove.byID(invite.id);
+
+            return res.json({
+                success: true
+            });
         } else {
             return Utils.sendError(res, 404, 'Not found');
         }
