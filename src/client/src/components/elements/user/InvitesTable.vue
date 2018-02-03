@@ -7,7 +7,7 @@
       b-table-column( field="to", label="ID компанії") {{ props.row.from}}
       b-table-column( field="role", label="Посада") {{ props.row.role }}
       b-table-column( field="id",label="Погодитися")
-        a.button(@click.stop="handleDelete(props.row._id||props.row._id)")
+        a.button(@click.stop="handleAccept(props.row._id||props.row._id)")
           b-icon(icon="check", type="is-success")
       b-table-column( field="id",label="Видалити")
         a.button(@click.stop="handleDelete(props.row._id||props.row._id)")
@@ -19,7 +19,8 @@
             b-icon(    icon="emoticon-sad",    size="is-large")
           p Немає запрошень
     template(slot="detail",slot-scope="props")
-      company-short(:id="props.row.from")
+      router-link(:to="{name:'Company.view',params:{id:props.row.from}}")
+        company-short(:id="props.row.from")
 </template>
 <script>
   import CompanyShort from '@elements/company/CompanyShort';
@@ -34,6 +35,9 @@
     methods: {
       handleDelete (id) {
         this.$emit('remove', id)
+      },
+      handleAccept (id) {
+        this.$emit('accept', id)
       }
     },
     computed: {

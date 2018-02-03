@@ -44,10 +44,10 @@
       }
     },
     computed: {
-      address(){
-        if(!this.company){
+      address () {
+        if (!this.company) {
           return '';
-        }else{
+        } else {
           return `${this.company.address.area}, ${this.company.address.city}, ${this.company.address.street}, ${this.company.address.building}`;
         }
       }

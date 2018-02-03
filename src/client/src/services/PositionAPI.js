@@ -6,11 +6,6 @@ export default {
       .access()
       .delete(`/api/v1/invite/${id}`);
   },
-  accept(id){
-    return API
-      .access()
-      .post(`/api/v1/invite/${id}`)
-  },
   load (id) {
     return API
       .access()
@@ -19,11 +14,6 @@ export default {
   loadByUser (id) {
     return API
       .access()
-      .get(`/api/v1/user/${id}/invites`);
+      .get(`/api/v1/user/${id}/positions`);
   },
-  create(id,args){
-    return API
-      .access()
-      .post(`/api/v1/company/${id}/invite/`,args)
-  }
 }

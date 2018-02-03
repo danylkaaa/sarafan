@@ -12,14 +12,19 @@
         user-card(:user="user")
       b-tab-item(label="Запрошення", v-if="haveEditRules")
         user-invites(:user="user")
+      b-tab-item(label="Посади")
+        user-positions(:user="user")
 </template>
 <script>
   import UserAPI from '#/UserAPI';
   import UserCard from '@elements/user/UserFull';
   import UserInvites from '@elements/user/UserInvites';
+  import UserPositions from '@elements/user/UserPositions';
+
   export default {
     components: {
       UserCard,
+      UserPositions,
       UserInvites
     },
     name: 'profile',
