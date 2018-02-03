@@ -20,7 +20,10 @@ router.get('/:id', async (req, res, next) => {
             info
         }
 
-        return res.status(200).json(data);
+        return res.json({
+            success: true,
+            item: data
+        });
     } else {
         return Utils.sendError(res, 404, 'Not found');
     }

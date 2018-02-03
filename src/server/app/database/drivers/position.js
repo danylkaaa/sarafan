@@ -7,6 +7,15 @@ function create(data) {
     return DB.methods.create(Position, data);
 }
 
+const get = {
+    byID(id) {
+        return DB.methods.get.byID(Position, id);
+    },
+    byQuery(data) {
+        return DB.methods.get.byQuery(Position, data);
+    }
+}
+
 module.exports = {
     create
 };
