@@ -45,13 +45,20 @@ router.delete('/:id', passport.authenticate(['access'], { session: false }), asy
     let invite = await InviteDB.get.byID(req.params.id);
 
     if (invite) {
-        if (req.user.id != invite.to) return Utils.sendError(res, 403, 'Forbidden');
+        let company = await CompanyDB.get.byID(invite.from);
+        if (company) {
+            if (req.user.id == invite.to || company.checkAdmin(req.user.id)) {
+                await InviteDB.remove.byID(invite.id);
 
-        await InviteDB.remove.byID(invite.id);
-
-        return res.json({
-            success: true
-        });
+                return res.json({
+                    success: true
+                });
+            } else {
+                return Utils.sendError(res, 403, 'Forbidden');
+            }
+        } else {
+            return Utils.sendError(res, 404, 'Not found');
+        }
     } else {
         return Utils.sendError(res, 404, 'Not found');
     }
