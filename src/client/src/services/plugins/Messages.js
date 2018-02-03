@@ -4,7 +4,9 @@ export default {
       error (err, Vue) {
         console.log(err)
         let msg = "Something is going wrong";
-        if (err.data && err.data.message) {
+        if (typeof msg == 'string') {
+          msg = err;
+        } else if (err.data && err.data.message) {
           msg = err.data.message;
         } else if (err.message) {
           msg = err.message;
@@ -17,7 +19,7 @@ export default {
           type: 'is-danger'
         })
       },
-      success (msg,Vue) {
+      success (msg, Vue) {
         Vue.$toast.open({
           duration: 5000,
           message: msg || "All is ok",
