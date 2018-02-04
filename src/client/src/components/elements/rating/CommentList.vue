@@ -1,8 +1,7 @@
 <template lang="pug">
   div(v-if="this.position")
-    | {{comments}}
-    comment(v-for="c in comments", :key="c.id||c._id",:comment="c")
     new-comment(v-if="canComment", :position="position")
+    comment(v-for="(c) in comments", :key="c.id||c._id",:comment="c")
 </template>
 <script>
   import CommentsAPI from '#/CommentsAPI';
@@ -55,7 +54,11 @@
       }
     },
     mounted () {
+      this.$bus.$on('comments-updated',this.load);
       this.load()
+    },
+    destroyed(){
+      this.$bus.$off('comments-updated',this.load);
     },
     props: {
       position: {

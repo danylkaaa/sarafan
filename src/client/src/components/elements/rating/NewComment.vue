@@ -38,6 +38,7 @@
           const result = await CommentsAPI.save(this.newComment)
           if (result.data.success) {
             this.$messages.success('Ви прокоментували роботу фахівця', this)
+            this.$bus.$emit('comments-updated');
           } else {
             throw result;
           }
@@ -56,7 +57,7 @@
             quality: 1,
             attitude: 1,
             professionalism: 1,
-            sociability: 1,
+            sociability: 5,
             speed: 1
           }
         }

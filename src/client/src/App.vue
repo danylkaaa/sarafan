@@ -58,4 +58,7 @@
 </script>
 
 <style>
+  *{
+    word-wrap: break-word;
+  }
 </style>

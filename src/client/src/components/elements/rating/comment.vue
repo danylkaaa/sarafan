@@ -1,20 +1,24 @@
 <template lang="pug">
-  div.media(v-if="comment && from && to")
-    | {{comment}}
-    figure.media-left
-      p.image.is-64x64
-        img(:src="from.picture||'/static/img/user.png'")
-    div.media-content
-      div.content
-    p
-      strong {{from.name}}
-    div.field
-    p.control
-      textarea.textarea(:value="comment.text",readonly)
-    nav.level
-      div.level-left
-        div.level-item
-          a.button.is-info Зберегти
+  div.box
+    div.media(v-if="comment && from")
+      figure.media-left
+        p.image.is-64x64
+          img(:src="from.picture||'/static/img/user.png'")
+        br
+        b-tag.is-info.is-large
+          span.has-text-white {{rating}}
+      div.media-content
+        div.content
+          p
+            strong {{from.name}}
+          p
+            | {{created}}
+            br
+            router-link(:to="{name:'User.view',query:{id:from.id||from._id}}") Профіль
+            br
+            div {{text}}
+            a.is-success(v-if="!isShort", @click.stop="()=>detailed=!detailed") Розгорнути
+
 </template>
 <script>
   import UserAPI from '#/UserAPI';
@@ -22,8 +26,8 @@
   export default {
     data () {
       return {
-        from: null,
-        to: null
+        detailed: false,
+        from: null
       }
     },
     methods: {
@@ -42,22 +46,51 @@
       },
       load () {
         try {
-          this.loadUser(comment.to, 'to');
-          this.loadUser(comment.from, 'from');
+          this.loadUser(this.comment.author, 'from');
         } catch (err) {
           console.log(err)
         }
       }
     },
-    computed: {},
+    computed: {
+      isShort () {
+        return this.comment.comment.length <= 50;
+      },
+      text () {
+        if (this.isShort) {
+          return this.comment.comment;
+        } else if (this.detailed) {
+          return this.comment.comment;
+        } else {
+          return this.comment.comment.substr(0, 50) + '...';
+        }
+      },
+      created () {
+        return (new Date(this.comment.modified)).toLocaleString();
+      },
+      rating () {
+        try {
+          let score = 0;
+          let i = 0;
+          Object.keys(this.comment.stats).forEach(x => {
+              i++;
+              score += Number(this.comment.stats[x])
+            }
+          )
+          return (score / i).toFixed(1);
+        } catch (err) {
+          return 0;
+        }
+      }
+    },
     props: {
       comment: {
         required: true,
         type: Object
       }
     },
-    created () {
-
+    mounted () {
+      this.load()
     }
   }
 </script>
