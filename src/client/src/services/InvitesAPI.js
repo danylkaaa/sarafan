@@ -4,7 +4,7 @@ export default {
   loadProfessions (str) {
     return API
       .noAuth()
-      .get('/api/v1/profession/' + str);
+      .get(`/api/v1/profession/${str}`);
   },
   remove (id) {
     return API

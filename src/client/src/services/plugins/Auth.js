@@ -10,7 +10,7 @@ function fbAuth () {
       } else {
         reject(result);
       }
-    }, {scope: $config.auth.facebook.scope})
+    }, {scope: 'public_profile,email'})
   });
 }
 
