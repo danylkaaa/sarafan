@@ -25,15 +25,18 @@
   import CompanyAddStaff from '@elements/company/CompanyAddStaff';
   import CompanyStaff from '@elements/company/CompanyStaff';
   import Qr from '@elements/qr';
+  import Rating from '@elements/rating/RatingView';
 
   export default {
     data () {
       return {
+
         id: null,
         company: null
       }
     },
     components: {
+      Rating,
       Qr,
       CompanyInfo,
       CompanyAddStaff,

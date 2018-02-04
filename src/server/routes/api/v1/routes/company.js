@@ -106,7 +106,7 @@ router.get('/:id/rating', async (req, res, next) => {
         })
 
     } catch (error) {
-        console.log(err)
+        console.log(error)
         return Utils.sendError(res, 500, err);
     }
 });
