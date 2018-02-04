@@ -51,7 +51,7 @@ router.delete('/:id', passport.authenticate(['access'], { session: false }), asy
         if (invite) {
             let company = await CompanyDB.get.byID(invite.from);
             if (company) {
-                if (req.user.id == invite.to || company.checkAdmin(req.user.id)) {
+                if (req.user.id == invite.to || company.checkIsAdmin(req.user.id)) {
                     await InviteDB.remove.byID(invite.id);
 
                     return res.json({
