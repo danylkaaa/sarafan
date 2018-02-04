@@ -11,12 +11,12 @@ export default {
   login (credentials) {
     console.log('send');
     return API
-      .basic(credentials.email,credentials.password)
+      .basic(credentials.email, credentials.password)
       .post('/api/v1/auth/login/');
   },
   loginFB (token) {
     return API
       .noAuth()
-      .post($config.auth.facebook.URL, {access_token: token})
+      .post('/api/v1/auth/facebook/', {access_token: token})
   }
 }
