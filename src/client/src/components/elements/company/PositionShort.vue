@@ -4,7 +4,7 @@
     b-taglist(attached)
       b-tag(type="is-dark").is-large Оцінка
       b-tag.is-info.is-large
-        a.has-text-white(@click.stop="$refs.rating.toggle") {{rating.score}}
+        a.has-text-white(@click.stop="$refs.rating.toggle") {{rating.average.toFixed(1)}}
     router-link(:to="{name:'Position.view',params:{id:position.id||position._id}}")
       a.buton.link
         | Детальніше
@@ -29,7 +29,7 @@
     data () {
       return {
         rating: {
-          score: 0,
+          average: 0,
           quality: 0,
           speed: 0,
           attitude: 0,

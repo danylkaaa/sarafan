@@ -16,7 +16,7 @@
             b-icon(    icon="emoticon-sad",    size="is-large")
           p Немає запрошень
     template(slot="detail",slot-scope="props")
-      router-link(:to="{name:'Profile',params:{id:props.row.to}}")
+      router-link(:to="{name:'Profile',query:{id:props.row.to}}")
         user-info(:id="props.row.to")
 </template>
 <script>

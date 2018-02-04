@@ -1,7 +1,7 @@
 <template lang="pug">
   div
     div.box
-      figure.image.avatar.is-256x256
+      div.avatar
         img.avatar-image(:src="user.picture||'/static/img/user.png'")
       br
       div.content
@@ -51,15 +51,17 @@
 <style scoped lang="scss">
   .avatar {
     margin: auto;
+    width: 256px;
     margin-top: -128px;
   }
 
   .avatar-image {
-    background-color: white;
-    border-radius: 50%;
-    border: 5px white solid;
-    box-sizing: content-box;
-    box-shadow: 0 2px 3px rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .1);
+    width: 256px;
+    heigth: 256px;
+    object-fit: cover;
+    position: relative;
+    border-radius: 5px;
+    display: block;
   }
 
   #qr {
