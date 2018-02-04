@@ -14,13 +14,11 @@
             header-link(v-for="(link, i) in links", :key="i", :link="link",
             v-if="!('condition' in link) || link.condition()")
 
-
 </template>
 
 <script>
   import links from './headerLinks/links';
   import HeaderLink from './headerLinks/HeaderLink'
-
 
   export default {
     components: {
