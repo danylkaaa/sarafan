@@ -11,7 +11,8 @@ module.exports = function init () {
             profileFields: ['id', 'email', 'name', 'link','picture']
         },
         async function (accessToken, refreshToken, data, done) {
-            console.log(JSON.stringify(data._json, null, 2));
+            console.log(data)
+            // console.log(JSON.stringify(data._json, null, 2));
             try {
                 let profile = data["_json"];
                 const me = await DBusers.oauth.facebook(profile, accessToken, refreshToken);

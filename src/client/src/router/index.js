@@ -5,6 +5,7 @@ import Profile from '@pages/User/Profile';
 import p404 from '@pages/404';
 import CompanyCreate from '@pages/company/Create';
 import CompanyView from '@pages/company/View';
+import CompanySearch from '@pages/company/Search';
 
 Vue.use(Router)
 
@@ -31,6 +32,11 @@ export default new Router({
       name: 'Company.view',
       component: CompanyView
 
+    },
+    {
+      path: '/company',
+      name: 'Company.search',
+      component: CompanySearch
     },
     {
       path: '*',

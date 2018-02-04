@@ -9,7 +9,7 @@
       figure.avatar
         img.avatar-image(src="/static/img/user.png", width="140px", alt="")
       h3.title.has-text-grey Реєстрація
-      p.subtitle.has-text-grey Зроби країну кращую вже сьогодні
+      p.subtitle.has-text-grey Зроби країну кращою вже сьогодні
       form.has-text-left
         input-text(label="name", ref="name",placeholder="Ваше повне ім'я",:rules="{required:true}", icon="account", type="text")
         input-text(label="email", ref="email",placeholder="Ваш дійсний email",:rules="{required:true, email:true}", icon="email", type="email")

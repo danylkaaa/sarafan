@@ -28,7 +28,7 @@
     methods: {
       async handleCreate () {
         if (!this.$refs.editArea.validate()) {
-          this.$messages.error("У вас виникла помилка призаповненні", this)
+          this.$messages.error("У вас виникла помилка при заповненні", this)
           return;
         }
         this.$bus.$emit('load-start');

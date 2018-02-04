@@ -1,6 +1,16 @@
 var express = require('express');
 var router = express.Router();
 
+
+
+///!!!! LEFT FOR TESTING PURPOSES ONLY
+// const mailer = require('@mailer');
+// router.get('/sendmail', (req, res) =>{
+//     mailer.sendInvite('eternal katzhen', 'mihail.lukjanec@gmail.com', 'just a ', 'test');
+//     res.sendMessage('sent');
+// })
+
+
 // API processing
 router.use('/api/v1/', require('@APIv1'));
 

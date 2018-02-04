@@ -15,18 +15,24 @@ function sendUser (req, res, next) {
             user: req.user.info()
         });
     } catch (err) {
+        console.log(err);
         return errorHandler(res, err);
     }
 }
 
 async function sendToken (req, res, next) {
-    return res.json(
-        {
-            success: true,
-            tokens: {
-                access: req.user.accessToken
-            }
-        });
+    try{
+        return res.json(
+            {
+                success: true,
+                tokens: {
+                    access: req.user.accessToken
+                }
+            });
+    } catch (err) {
+        console.log(err);
+        return errorHandler(res, err);
+    }
 }
 
 // router.post('/register',

@@ -45,26 +45,31 @@ router.post('/:id', passport.authenticate(['access'], { session: false }), async
 });
 
 router.delete('/:id', passport.authenticate(['access'], { session: false }), async (req, res, next) => {
-    let invite = await InviteDB.get.byID(req.params.id);
+     try{
+        let invite = await InviteDB.get.byID(req.params.id);
 
-    if (invite) {
-        let company = await CompanyDB.get.byID(invite.from);
-        if (company) {
-            if (req.user.id == invite.to || company.checkAdmin(req.user.id)) {
-                await InviteDB.remove.byID(invite.id);
+        if (invite) {
+            let company = await CompanyDB.get.byID(invite.from);
+            if (company) {
+                if (req.user.id == invite.to || company.checkAdmin(req.user.id)) {
+                    await InviteDB.remove.byID(invite.id);
 
-                return res.json({
-                    success: true
-                });
+                    return res.json({
+                        success: true
+                    });
+                } else {
+                    return Utils.sendError(res, 403, 'Forbidden');
+                }
             } else {
-                return Utils.sendError(res, 403, 'Forbidden');
+                return Utils.sendError(res, 404, 'Not found');
             }
         } else {
             return Utils.sendError(res, 404, 'Not found');
         }
-    } else {
-        return Utils.sendError(res, 404, 'Not found');
-    }
+     }catch (err){
+        console.log(err)
+        return Utils.sendError(res,500,err)
+     }
 });
 
 module.exports = router;
