@@ -1,5 +1,10 @@
 <template lang="pug">
   div.box
+    rating(v-if="rating ",:stats="rating", ref="rating")
+    b-taglist(attached)
+      b-tag(type="is-dark").is-large Оцінка
+      b-tag.is-info.is-large
+        a.has-text-white(@click.stop="$refs.rating.toggle") {{rating.score}}
     router-link(:to="{name:'Position.view',params:{id:position.id||position._id}}")
       a.buton.link
         | Детальніше
@@ -9,18 +14,45 @@
     p.subtitle Особа
       router-link(:to="{name:'Profile',query:{id:position.user}}")
         user-short(:id="position.user")
+
 </template>
 <script>
   import UserShort from '../user/UserShort';
+  import Rating from '@elements/rating/RatingView';
+  import PositionAPI from '#/PositionAPI';
 
   export default {
     components: {
-      UserShort
+      UserShort,
+      Rating
     },
     data () {
-      return {}
+      return {
+        rating: {
+          score: 0,
+          quality: 0,
+          speed: 0,
+          attitude: 0,
+          sociability: 0,
+          professionalism: 0
+        }
+      }
     },
-    methods: {},
+    methods: {
+      async loadRating () {
+        try {
+          const result = await PositionAPI.rating(this.position.id || this.position._id);
+          if (result.data.success) {
+            this.rating = result.data.item;
+          }
+        } catch (err) {
+
+        }
+      }
+    },
+    mounted () {
+      this.loadRating();
+    },
     computed: {},
     props: {
       position: {

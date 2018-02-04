@@ -5,15 +5,17 @@
     div.container.columns.is-multiline
       div.column.is-3-desktop.is-4-tablet(v-for="(position,i) in positions", :key="i")
         position-short(:position="position")
+
 </template>
 <script>
+
   import PositionShort from './PositionShort';
   import PositionAPI from '#/PositionAPI';
 
   export default {
     data () {
       return {
-        positions: []
+        positions: [],
       }
     },
     components: {
