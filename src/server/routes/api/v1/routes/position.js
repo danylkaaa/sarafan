@@ -27,8 +27,9 @@ router.get('/:id', async (req, res, next) => {
 
 router.get('/:id/rating', async (req, res, next) => {
     try {
-        let review = await ReviewDB.get.byID(req.params.id);
-        let stats = await review.calculateRating();
+        let position = await PositionDB.get.byID(req.params.id);
+
+        let stats = await position.calculateRating();
         let average = 0;
         for(let key in stats){
             average += stats[key];
