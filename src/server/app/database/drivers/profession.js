@@ -1,6 +1,8 @@
 const DB = require('@DB');
 const Profession = require('../models/profession');
 
+let query = { profession: new RegExp(`^${str}`, i) };
+
 async function size() {
     return (await Profession.paginate({},{limit:0})).total;
 }
@@ -22,5 +24,8 @@ module.exports = {
             }
             return Promise.all(x)
         }
+    },
+    find(str) {
+        return DB.methods.get.byQuery(Profession, query);
     }
 }
