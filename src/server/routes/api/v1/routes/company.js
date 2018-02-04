@@ -78,6 +78,39 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
+router.get('/:id/rating', async (req, res, next) => {
+    try {
+        let positions = PositionDB.get.byCompany(req.params.id);
+        let stats = await Promise.all(positions.map(pos => { return pos.calculateRating() }));
+        let results = {
+            quality: 0,
+            attitude: 0,
+            professionalism: 0,
+            sociability: 0,
+            speed: 0
+        };
+
+        for (let stat of stats) {
+            for (let key in results) {
+                results[key] += stat[key];
+            }
+        }
+
+        for (let key in results) {
+            results[key] /= 5;
+        }
+
+        return res.json({
+            success: true,
+            item: results
+        })
+
+    } catch (error) {
+        console.log(err)
+        return Utils.sendError(res, 500, err);
+    }
+});
+
 router.get('/:id/invites', passport.authenticate(['access'], { session: false }), async (req, res, next) => {
     try {
         let company = await CompanyDB.get.byID(req.params.id);

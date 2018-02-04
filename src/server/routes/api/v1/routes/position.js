@@ -27,29 +27,15 @@ router.get('/:id', async (req, res, next) => {
 
 router.get('/:id/rating', async (req, res, next) => {
     try {
-        let reviews = await ReviewDB.get.byTarget(req.params.id);
-        let stats = {
-            quality: 0,
-            attitude: 0,
-            professionalism: 0,
-            sociability: 0,
-            speed: 0
-        }
+        let review = await ReviewDB.get.byID(req.params.id);
 
-        for (let review of reviews) {
-            for (let key in stats) {
-                stats[key] += review.stats[key];
-            }
-        }
-
+        let stats = await review.calculateRating();
         let average = 0;
-        for (let key in stats) {
-            stats[key] = Utils.calculateRating(stats[key], reviews.length);
+        for(let key in stats){
             average += stats[key];
         }
         average /= 5;
-        stats.score = average.toFixed(1);
-        console.log(stats)
+        stats.average = average;
         return res.json({
             success: true,
             item: stats
