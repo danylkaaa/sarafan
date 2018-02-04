@@ -4,11 +4,11 @@ const Profession = require('../models/profession');
 let query = { profession: new RegExp(`^${str}`, i) };
 
 async function size() {
-    return (await DB.methods.get.all(Profession)).lenght;
+    return (await Profession.paginate({},{limit:0})).total;
 }
 
 function create(profession) {
-    return DB.methods.create(Profession, { profession });
+    return DB.methods.create(Profession,  profession);
 }
 
 module.exports = {
@@ -16,10 +16,13 @@ module.exports = {
         if (await size() == 0) {
             let professions = require('../../../public/files/professions.json');
 
+            let i=0;
+            let x=[];
             for (let profession of professions) {
-                await ProfessionDB.create({ profession });
-                console.log('created prof');
+                x.push(create({ profession }));
+                console.log(i++)
             }
+            return Promise.all(x)
         }
     },
     find(str) {

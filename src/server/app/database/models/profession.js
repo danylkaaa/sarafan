@@ -8,7 +8,7 @@ let profession = Mongoose.Schema({
         primary: true
     }
 });
-
+profession.index({profession: 1});
 profession.plugin(require('mongoose-paginate'));
 
 let professionModel = Mongoose.model('Profession', profession);

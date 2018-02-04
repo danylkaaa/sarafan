@@ -23,5 +23,6 @@ const get = {
 }
 
 module.exports = {
-    create
+    create,
+    get
 };

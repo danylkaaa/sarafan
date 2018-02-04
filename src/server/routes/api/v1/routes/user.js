@@ -36,15 +36,20 @@ router.get('/:id/companies', async (req, res, next) => {
 });
 
 router.get('/:id/positions', async (req, res, next) => {
-    let user = await UserDB.get.byID(req.params.id);
+    try {
+        let user = await UserDB.get.byID(req.params.id);
 
-    if (user) {
-        return res.json({
-            success: true,
-            item: await PositionDB.get.byUser(user.id)
-        });
-    } else {
-        return Utils.sendError(res, 404, 'Not found');
+        if (user) {
+            return res.json({
+                success: true,
+                item: await PositionDB.get.byUser(user.id)
+            });
+        } else {
+            return Utils.sendError(res, 404, 'Not found');
+        }
+    }catch (err){
+        console.log(err)
+        return Utils.sendError(res,500,err)
     }
 });
 
