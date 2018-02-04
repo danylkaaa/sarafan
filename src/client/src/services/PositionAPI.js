@@ -2,9 +2,10 @@ import API from '#/API';
 
 export default {
   rating(id){
+    console.log('r')
     return API
       .noAuth()
-      .get(`/api/v1/positions/${id}/rating`)
+      .get(`/api/v1/position/${id}/rating`)
   },
   loadByCompany (id) {
     return API

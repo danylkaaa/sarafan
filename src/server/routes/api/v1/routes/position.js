@@ -35,28 +35,27 @@ router.get('/:id/rating', async (req, res, next) => {
             sociability: 0,
             speed: 0
         }
-        
-        for(let review of reviews) {
-            for(let key in stats) {
+
+        for (let review of reviews) {
+            for (let key in stats) {
                 stats[key] += review.stats[key];
             }
         }
 
         let average = 0;
-        for(let key in stats){
+        for (let key in stats) {
             stats[key] = Utils.calculateRating(stats[key], reviews.length);
             average += stats[key];
         }
         average /= 5;
-
+        stats.score = average.toFixed(1);
+        console.log(stats)
         return res.json({
             success: true,
-            item: {
-                stats,
-                average
-            }
+            item: stats
         })
     } catch (error) {
+        console.log(error)
         return Utils.sendError(res, 500, error)
     }
 });

@@ -41,6 +41,7 @@
       async loadRating () {
         try {
           const result = await PositionAPI.rating(this.position.id || this.position._id);
+          console.log('aaa',result.data)
           if (result.data.success) {
             this.rating = result.data.item;
           }
