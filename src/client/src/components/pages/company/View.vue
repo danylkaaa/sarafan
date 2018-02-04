@@ -1,5 +1,9 @@
 <template lang="pug">
   div.container
+    div.field.has-addons(v-if="haveEditRules")
+      p.control
+        a.button.is-danger(@click.stop="handleDelete", v-if="haveEditRules") Видалити
+        a.button.is-warning(@click.stop="handleEdit", v-if="haveEditRules")  Змінити
     br
     b-tabs(v-if="company")
       b-tab-item(label="Інформація")
@@ -15,6 +19,7 @@
   import CompanyInfo from '@elements/company/Info';
   import CompanyAddStaff from '@elements/company/CompanyAddStaff';
   import CompanyStaff from '@elements/company/CompanyStaff';
+
   export default {
     data () {
       return {
@@ -35,6 +40,20 @@
         } else {
           this.$router.push({name: '404'});
         }
+      },
+      async handleDelete () {
+        this.$bus.$emit('load-start');
+        try {
+          const result = await CompanyAPI.remove(this.id);
+          if (result.data.success) {
+            this.$router.push({name: 'Home'})
+          } else {
+            throw result.data.message
+          }
+        } catch (err) {
+          this.$messages.error(err, this);
+        }
+        this.$bus.$emit('load-end');
       },
       async loadCompany () {
         console.log(1)

@@ -1,31 +1,31 @@
 const DB = require('@DB');
 const Profession = require('../models/profession');
 
-let query = { profession: new RegExp(`^${str}`, i) };
 
-async function size() {
-    return (await Profession.paginate({},{limit:0})).total;
+async function size () {
+    return (await Profession.paginate({}, {limit: 0})).total;
 }
 
-function create(profession) {
-    return DB.methods.create(Profession,  profession);
+function create (profession) {
+    return DB.methods.create(Profession, profession);
 }
 
 module.exports = {
-    async fillProfessions() {
+    async fillProfessions () {
         if (await size() == 0) {
             let professions = require('../../../public/files/professions.json');
 
-            let i=0;
-            let x=[];
+            let i = 0;
+            let x = [];
             for (let profession of professions) {
-                x.push(create({ profession }));
+                x.push(create({profession}));
                 console.log(i++)
             }
             return Promise.all(x)
         }
     },
-    find(str) {
+    find (str) {
+        let query = {profession: new RegExp(`^${str}`, i)};
         return DB.methods.get.byQuery(Profession, query);
     }
 }
