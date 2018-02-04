@@ -1,12 +1,17 @@
 import API from '#/API';
 
 export default {
-  remove(id){
+  loadProfessions (str) {
+    return API
+      .noAuth()
+      .get('/api/v1/profession/' + str);
+  },
+  remove (id) {
     return API
       .access()
       .delete(`/api/v1/invite/${id}`);
   },
-  accept(id){
+  accept (id) {
     return API
       .access()
       .post(`/api/v1/invite/${id}`)
@@ -21,9 +26,9 @@ export default {
       .access()
       .get(`/api/v1/user/${id}/invites`);
   },
-  create(id,args){
+  create (id, args) {
     return API
       .access()
-      .post(`/api/v1/company/${id}/invite/`,args)
+      .post(`/api/v1/company/${id}/invite/`, args)
   }
 }

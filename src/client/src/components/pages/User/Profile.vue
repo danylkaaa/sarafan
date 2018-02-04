@@ -5,7 +5,7 @@
       p.control
         a.button.is-danger(@click.stop="handleDelete", v-if="haveEditRules") Видалити
         a.button.is-warning(@click.stop="handleEdit", v-if="haveEditRules")  Змінити
-        router-link(:to="{name:'Company.create'}")
+        router-link(:to="{name:'Company.create'}", v-if="$store.getters.isLogged()")
           a.button.is-link Створити компанію
     b-tabs(v-if="user")
       b-tab-item(label="Інформація")

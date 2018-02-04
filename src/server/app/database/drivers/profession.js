@@ -25,7 +25,7 @@ module.exports = {
         }
     },
     find (str) {
-        let query = {profession: new RegExp(`^${str}`, i)};
+        let query = {profession: new RegExp(`^${str}`,'i')};
         return DB.methods.get.byQuery(Profession, query);
     }
 }

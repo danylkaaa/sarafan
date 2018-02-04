@@ -3,9 +3,11 @@
     b-field()
       b-autocomplete(
       v-model="role",
-      :data="$config.roles",
+      :data="data",
       placeholder="Оберіть посаду",
       icon="magnify",
+      @input="getAsyncData",
+      :loading="isFetching",
       @select="option => selected = option")
     input-text(label="to", ref = "to", type = "text", :rules="{required:true}", placeholder="ID користувача")
     a.button.is-success(@click.stop="handleCreate") Створити
@@ -17,13 +19,31 @@
   export default {
     data () {
       return {
-        role: null
+        data: [],
+        role: null,
+        isFetching: false
       }
     },
     components: {
       InputText
     },
     methods: {
+      async getAsyncData () {
+        if(!this.role){
+          return;
+        }
+        this.data = [];
+        try {
+          const result = await InvitesAPI.loadProfessions(this.role);
+          if (result) {
+            this.data = result.data.item;
+          } else {
+            throw result;
+          }
+        } catch (err) {
+          this.$messages.error(err, this);
+        }
+      },
       async handleCreate () {
         if (!this.role || !this.$refs.to.isValid) {
           this.$messages.error("Не всі поля заповнені", this)
@@ -56,8 +76,8 @@
       }
     },
     props: {
-      company:{
-        required:true
+      company: {
+        required: true
       }
     },
     created () {
