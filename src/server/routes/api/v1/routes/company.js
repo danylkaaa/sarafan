@@ -3,9 +3,11 @@ const express = require('express');
 const router = express.Router();
 const Utils = require('@utils');
 const passport = require('passport');
+
 const PositionDB = require('@DBfolder/position');
 const CompanyDB = require('@DBfolder/company');
 const InviteDB = require('@DBfolder/invite');
+const ReviewDB = require('@DBfolder/review');
 
 function query (args) {
     let query = {};
@@ -104,7 +106,24 @@ router.get('/:id/positions', async (req, res, next) => {
                 item: await PositionDB.get.byCompany(company.id)
             });
         } else {
-            return Utils.sendError(res, 403, 'Forbidden');
+            return Utils.sendError(res, 404, 'Not found');
+        }
+    }catch (err){
+        return Utils.sendError(res,500,err);
+    }
+});
+
+router.get('/:id/reviews', async (req, res, next) => {
+    try {
+        let company = await CompanyDB.get.byID(req.params.id);
+
+        if (company) {
+            return res.json({
+                success: true,
+                item: await ReviewDB.get.byTarget(company.id)
+            });
+        } else {
+            return Utils.sendError(res, 404, 'Not found');
         }
     } catch (err) {
         console.log(err)

@@ -3,10 +3,7 @@ const Utils = require('@utils');
 const config = require('@config');
 const Company = require('../models/company');
 
-const PositionDB = require('@DBfolder/position');
-const InviteDB = require('@DBfolder/invite');
-
-function create (data) {
+function create(data) {
     let administration = data.administration;
     data.administration = [];
     data.administration.push(administration);
@@ -43,10 +40,15 @@ const get = {
 };
 
 const remove = {
-    byID (id) {
-        PositionDB.remove.byCompany(id);
-        InviteDB.remove.byCompany(id);
+    byID(id) {
         return DB.methods.remove.byID(Company, id);
+    },
+    async byAdmin(adminID){
+        let companies = await get.byAdmin(adminID);
+        let promises = companies.map(company => {
+            return DB.methods.remove.byID(Company, company.id);
+        });
+        Promise.all(promises);
     }
 };
 

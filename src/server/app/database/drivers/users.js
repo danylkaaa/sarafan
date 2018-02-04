@@ -3,9 +3,6 @@ const Utils = require('@utils');
 const config = require('@config');
 const User = require('../models/user');
 
-const PositionDB = require('@DBfolder/position');
-const InviteDB = require('@DBfolder/invite');
-
 async function create (data) {
     return DB.methods.create(User, data);
 }
@@ -37,8 +34,6 @@ const get = {
 };
 const remove = {
     byID (id) {
-        PositionDB.remove.byUser(id);
-        InviteDB.remove.byUser(id);
         return DB.methods.remove.byID(User, id)
     },
     byEmail (email) {

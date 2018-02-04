@@ -11,19 +11,29 @@ const get = {
     byID(id) {
         return DB.methods.get.byID(Review, id);
     },
-    byQuery(data) {
-        return DB.methods.get.oneByQuery(Review, data);
+    byTarget(targetID) {
+        return DB.methods.get.byQuery(Review, { target: targetID });
     }
 };
 
 const remove = {
     byID(id) {
         return DB.methods.remove.byID(Review, id);
+    },
+    byTarget(targetID) {
+        return DB.methods.remove.byQuery(Review, { target: targetID });
     }
 };
+
+const update = {
+    byID(id, data) {
+        return DB.methods.update.byID(Review, id, data);
+    }
+}
 
 module.exports = {
     create,
     get,
-    remove
+    remove,
+    update
 }
