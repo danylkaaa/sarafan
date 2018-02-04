@@ -1,6 +1,8 @@
 const DB = require('@DB');
 const Profession = require('../models/profession');
 
+let query = { profession: new RegExp(`^${str}`, i) };
+
 async function size() {
     return (await DB.methods.get.all(Profession)).lenght;
 }
@@ -19,5 +21,8 @@ module.exports = {
                 console.log('created prof');
             }
         }
+    },
+    find(str) {
+        return DB.methods.get.byQuery(Profession, query);
     }
 }

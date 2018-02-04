@@ -7,5 +7,6 @@ router.use('/invite', require('./routes/invite'));
 router.use('/user', require('./routes/user'));
 router.use('/review', require('./routes/review'));
 router.use('/position', require('./routes/position'));
+router.use('/profession', require('./routes/profession'));
 
 module.exports = router;
