@@ -9,7 +9,7 @@ const CompanyDB = require('@DBfolder/company');
 const InviteDB = require('@DBfolder/invite');
 const ReviewDB = require('@DBfolder/review');
 
-function query (args) {
+function query(args) {
     let query = {};
     if (args.city) {
         query["address.city"] = new RegExp(`^${args.city}`, 'i');
@@ -23,11 +23,11 @@ function query (args) {
     return query;
 }
 
-function pagination (args) {
+function pagination(args) {
     return {
         page: Number(args.page) || 1,
         limit: Number(args.limit) || 20,
-        sort: args.sort || {name: 1}
+        sort: args.sort || { name: 1 }
     }
 }
 
@@ -55,7 +55,7 @@ router.get('/:id', async (req, res, next) => {
     try {
         let company = await CompanyDB.get.byID(req.params.id);
         if (company) {
-            let {address, administration, staff, info, name, _id} = company;
+            let { address, administration, staff, info, name, _id } = company;
             let data = {
                 id: _id,
                 address,
@@ -78,7 +78,7 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
-router.get('/:id/invites', passport.authenticate(['access'], {session: false}), async (req, res, next) => {
+router.get('/:id/invites', passport.authenticate(['access'], { session: false }), async (req, res, next) => {
     try {
         let company = await CompanyDB.get.byID(req.params.id);
 
@@ -108,8 +108,8 @@ router.get('/:id/positions', async (req, res, next) => {
         } else {
             return Utils.sendError(res, 404, 'Not found');
         }
-    }catch (err){
-        return Utils.sendError(res,500,err);
+    } catch (err) {
+        return Utils.sendError(res, 500, err);
     }
 });
 
@@ -131,10 +131,10 @@ router.get('/:id/reviews', async (req, res, next) => {
     }
 });
 
-router.post('/create', passport.authenticate(['access'], {session: false}), async (req, res, next) => {
+router.post('/create', passport.authenticate(['access'], { session: false }), async (req, res, next) => {
     try {
         //console.log(req.body)
-        let {address, info, name} = req.body;
+        let { address, info, name } = req.body;
         let data = {
             address,
             info,
@@ -143,6 +143,11 @@ router.post('/create', passport.authenticate(['access'], {session: false}), asyn
         };
 
         const company = await CompanyDB.create(data);
+        await PositionDB.create({
+            company,
+            user: req.user.id,
+            post: 'Власник'
+        });
 
         return res.json({
             success: true,
@@ -154,7 +159,7 @@ router.post('/create', passport.authenticate(['access'], {session: false}), asyn
     }
 });
 
-router.delete('/:id', passport.authenticate(['access'], {session: false}), async (req, res, next) => {
+router.delete('/:id', passport.authenticate(['access'], { session: false }), async (req, res, next) => {
     try {
         let company = await CompanyDB.get.byID(req.params.id);
 
@@ -173,7 +178,7 @@ router.delete('/:id', passport.authenticate(['access'], {session: false}), async
     }
 });
 
-router.put('/:id', passport.authenticate(['access'], {session: false}), async (req, res, next) => {
+router.put('/:id', passport.authenticate(['access'], { session: false }), async (req, res, next) => {
     try {
         let company = await CompanyDB.get.byID(req.params.id);
 
@@ -199,7 +204,7 @@ router.put('/:id', passport.authenticate(['access'], {session: false}), async (r
 
 });
 
-router.post('/:id/invite', passport.authenticate(['access'], {session: false}), async (req, res, next) => {
+router.post('/:id/invite', passport.authenticate(['access'], { session: false }), async (req, res, next) => {
     try {
         let company = await CompanyDB.get.byID(req.params.id);
 
