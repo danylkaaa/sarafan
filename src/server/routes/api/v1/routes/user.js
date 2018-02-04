@@ -10,28 +10,38 @@ const PositionDB = require('@DBfolder/position');
 const InviteDB = require('@DBfolder/invite');
 
 router.get('/:id', async (req, res, next) => {
-    let user = await UserDB.get.byID(req.params.id);
+    try {
+        let user = await UserDB.get.byID(req.params.id);
 
-    if (user) {
-        return res.json({
-            success: true,
-            item: user.info()
-        });
-    } else {
-        return Utils.sendError(res, 404, 'Not found');
+        if (user) {
+            return res.json({
+                success: true,
+                item: user.info()
+            });
+        } else {
+            return Utils.sendError(res, 404, 'Not found');
+        }
+    } catch (err) {
+        console.log(err, 1)
+        return Utils.sendError(res, 500, err);
     }
 });
 
 router.get('/:id/companies', async (req, res, next) => {
-    let user = await UserDB.get.byID(req.params.id);
+    try {
+        let user = await UserDB.get.byID(req.params.id);
 
-    if (user) {
-        return res.json({
-            success: true,
-            item: await CompanyDB.get.byAdmin(user.id)
-        });
-    } else {
-        return Utils.sendError(res, 404, 'Not found');
+        if (user) {
+            return res.json({
+                success: true,
+                item: await CompanyDB.get.byAdmin(user.id)
+            });
+        } else {
+            return Utils.sendError(res, 404, 'Not found');
+        }
+    } catch (err) {
+        console.log(err, 1)
+        return Utils.sendError(res, 500, err);
     }
 });
 
@@ -54,14 +64,19 @@ router.get('/:id/positions', async (req, res, next) => {
 });
 
 router.get('/:id/invites', passport.authenticate(['access'], {session: false}), async (req, res, next) => {
-    return res.json({
-        success: true,
-        item: await InviteDB.get.byUser(req.user.id)
-    })
+    try {
+        return res.json({
+            success: true,
+            item: await InviteDB.get.byUser(req.user.id)
+        })
+    } catch (err) {
+        console.log(err, 1)
+        return Utils.sendError(res, 500, err);
+    }
 })
 
 router.delete('/:id', passport.authenticate(['access'], {session: false}), async (req, res, next) => {
-    console.log(1)
+    //console.log(1)
     try {
         let user = await UserDB.get.byID(req.params.id);
         if (!user) {
