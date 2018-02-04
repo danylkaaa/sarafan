@@ -13,8 +13,10 @@ router.post('/', passport.authenticate('access', { session: false }), async (req
     };
 
     try {
-        let review = await ReviewDB.create(data);
+        let review = await ReviewDB.get.byQuery(data);
+        if(review) return Utils.sendError(res, 400, `Рев'ю вже існує`);
 
+        review = await ReviewDB.create(data);
         return res.json({
             success: true,
             item: review
@@ -35,6 +37,7 @@ router.put('/:id', passport.authenticate('access', { session: false }), async (r
 
         if(!review) return Utils.sendError(res, 404, 'Not found');
         if(review.author != data.author) return Utils.sendError(res, 403, 'Forbidden');
+        if(Date.now() - review.modified > 1000 * 60 * 60 * 24 * 7) return Utils.sendError(res, 400, 'Спробуйте пізніше');
 
         await ReviewDB.update.byID(id, data);
 

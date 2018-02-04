@@ -13,6 +13,9 @@ const get = {
     },
     byTarget(targetID) {
         return DB.methods.get.byQuery(Review, { target: targetID });
+    },
+    byQuery(query) {
+        return DB.methods.get.oneByQuery(Review, query);
     }
 };
 
