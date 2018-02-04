@@ -27,7 +27,6 @@ router.post('/:id', passport.authenticate(['access'], { session: false }), async
                 };
 
                 let position = await PositionDB.create(data);
-                await company.addStaff(position.id);
                 await InviteDB.remove.byID(invite.id);
 
                 return res.json({

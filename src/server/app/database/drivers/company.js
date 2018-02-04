@@ -3,6 +3,9 @@ const Utils = require('@utils');
 const config = require('@config');
 const Company = require('../models/company');
 
+const PositionDB = require('@DBfolder/position');
+const InviteDB = require('@DBfolder/invite');
+
 function create(data) {
     let administration = data.administration;
     data.administration = [];
@@ -37,6 +40,8 @@ const get = {
 
 const remove = {
     byID(id) {
+        PositionDB.remove.byCompany(id);
+        InviteDB.remove.byCompany(id);
         return DB.methods.remove.byID(Company, id);
     }
 };
