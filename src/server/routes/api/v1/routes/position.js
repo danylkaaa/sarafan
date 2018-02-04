@@ -27,34 +27,18 @@ router.get('/:id', async (req, res, next) => {
 
 router.get('/:id/rating', async (req, res, next) => {
     try {
-        let reviews = await ReviewDB.get.byTarget(req.params.id);
-        let stats = {
-            quality: 0,
-            attitude: 0,
-            professionalism: 0,
-            sociability: 0,
-            speed: 0
-        }
-        
-        for(let review of reviews) {
-            for(let key in stats) {
-                stats[key] += review.stats[key];
-            }
-        }
+        let review = ReviewDB.get.byID(req.params.id);
 
+        let stats = await review.calculateRating();
         let average = 0;
         for(let key in stats){
-            stats[key] = Utils.calculateRating(stats[key], reviews.length);
             average += stats[key];
         }
         average /= 5;
-
+        stats.average = average;
         return res.json({
             success: true,
-            item: {
-                stats,
-                average
-            }
+            item: stats
         })
     } catch (error) {
         return Utils.sendError(res, 500, error)
