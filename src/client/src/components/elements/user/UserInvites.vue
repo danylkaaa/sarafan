@@ -1,7 +1,8 @@
 <template lang="pug">
   div
-    div.box
+    div
       a.button.is-primary(@click.stop="handleLoad") Оновити
+    br
     div.box
       invites-table(:data="invites", @remove="handleRemove", @accept="handleAccept")
 </template>

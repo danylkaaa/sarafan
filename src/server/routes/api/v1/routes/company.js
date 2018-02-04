@@ -78,6 +78,10 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
+router.get('/:id/rating', async (req, res, next) => {
+    
+});
+
 router.get('/:id/invites', passport.authenticate(['access'], { session: false }), async (req, res, next) => {
     try {
         let company = await CompanyDB.get.byID(req.params.id);

@@ -41,6 +41,7 @@ router.get('/:id/rating', async (req, res, next) => {
             item: stats
         })
     } catch (error) {
+        console.log(error)
         return Utils.sendError(res, 500, error)
     }
 });

@@ -1,8 +1,10 @@
 "use strict";
 const path = require('path');
 
+
 function generateDB () {
     let suff = process.env.NODE_ENV == 'dev' ? "DEV" : "PROD";
+    console.log('suff=', suff)
     let address = process.env[`DB_${suff}_ADDRESS`];
     return address
         .replace(`<dbuser>`, process.env[`DB_${suff}_USER`])
@@ -11,7 +13,7 @@ function generateDB () {
 
 module.exports = {
     IS_DEV: process.env.NODE_ENV == 'dev',
-    ROOT_URL: this.IS_DEV ? `localhost:${this.PORT}` : `https://conrol-my-budget.herokuapp.com`,
+    ROOT_URL: this.IS_DEV ? `localhost:${this.PORT}` : `https://sarafan.herokuapp.com/`,
     DB_URL: generateDB(),
     PORT: process.env.PORT || 3000,
     security: {

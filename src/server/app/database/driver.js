@@ -9,7 +9,7 @@ function connect () {
         useMongoClient: true,
         promiseLibrary: global.Promise
     });
-
+    console.log(config.DB_URL, config.IS_DEV);
     process.on('SIGINT', () => {
         database.close(() => {
             console.log('+DB: connection closed');
