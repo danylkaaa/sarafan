@@ -27,10 +27,6 @@ let Company = new Mongoose.Schema({
         required: true,
         default: []
     },
-    staff: {
-        type: [Mongoose.Schema.Types.ObjectId],
-        default: []
-    },
     invites: {
         type: [Mongoose.Schema.Types.ObjectId],
         default: []
@@ -55,11 +51,6 @@ Company.methods.checkIsAdmin = function (id) {
     }
 
     return admin;
-}
-
-Company.methods.addStaff = function(staffID){
-    this.staff.push(staffID);
-    return this.save();
 }
 
 let companyModel = Mongoose.model('Company', Company);
