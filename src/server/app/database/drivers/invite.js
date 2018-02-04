@@ -25,6 +25,12 @@ const get = {
 const remove = {
     byID(id) {
         return DB.methods.remove.byID(Invite, id);
+    },
+    byUser(userID) {
+        return DB.methods.remove.byQuery(Invite, { to: userID });
+    },
+    byCompany(companyID) {
+        return DB.methods.remove.byQuery(Invite, { from: companyID });
     }
 };
 
