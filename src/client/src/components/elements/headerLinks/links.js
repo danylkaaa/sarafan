@@ -3,7 +3,7 @@ import {$bus} from '#/plugins/Bus';
 
 let buttons = [];
 buttons.push({
-  title: "Ввійти",
+  title: "Увійти",
   // class: "is-hidden-desktop",
   handler: () => {
     $bus.$emit('login', 'facebook');
@@ -12,7 +12,7 @@ buttons.push({
     name: "facebook",
     pack: "fa"
   },
-  tooltip: "Уввійти до акаунту",
+  tooltip: "Увійти до акаунту",
   condition: () => !$store.getters.isLogged()
 }),
   buttons.push({
@@ -21,7 +21,7 @@ buttons.push({
       name: "home",
       pack: "fa"
     },
-    tooltip: "Уввійти до акаунту",
+    tooltip: "Увійти до акаунту",
     to:{name:'Company.search'}
   })
 // buttons.push({
@@ -61,7 +61,7 @@ buttons.push(
       name: 'Profile'
     },
 
-    tooltip: "Ваш персональна сторінка",
+    tooltip: "Ваша персональна сторінка",
     condition: () => $store.getters.isLogged()
   }
 )
