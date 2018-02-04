@@ -23,7 +23,7 @@
       async handleLoad () {
         this.$bus.$emit('load-start')
         try {
-          let result = await PositionAPI.loadByCompany(this.company.id||this.company._id);
+          let result = await PositionAPI.loadByCompany(this.company.id || this.company._id);
           console.log(result.data)
           if (result.data.success) {
             this.positions = result.data.item;
