@@ -13,7 +13,7 @@
     b-taglist(attached)
       b-tag(type="is-dark").is-large Оцінка
       b-tag.is-info.is-large
-        a.has-text-white(@click.stop="$refs.rating.toggle") {{rating.score}}
+        a.has-text-white(@click.stop="$refs.rating.toggle") {{rating.average.toFixed(1)}}
 </template>
 <script>
   import CompanyShort from '../company/CompanyShort';
@@ -28,7 +28,7 @@
     data () {
       return {
         rating: {
-          score: 0,
+          average: 0,
           quality: 0,
           speed: 0,
           attitude: 0,
@@ -41,7 +41,7 @@
       async loadRating () {
         try {
           const result = await PositionAPI.rating(this.position.id || this.position._id);
-          console.log('aaa',result.data)
+          console.log('aaa', result.data)
           if (result.data.success) {
             this.rating = result.data.item;
           }

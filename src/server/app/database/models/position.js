@@ -25,7 +25,7 @@ Position.pre('remove', async function (doc, next) {
     next();
 });
 
-Position.methods.calulateRating = async function () {
+Position.methods.calculateRating = async function () {
     try {
         let reviews = await ReviewDB.get.byTarget(this.id);
         let stats = {
