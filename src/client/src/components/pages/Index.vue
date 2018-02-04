@@ -1,10 +1,10 @@
 <template lang="pug">
   div
-    section.hero.is-info.is-fullheight#search
+    section.hero.is-facebook.is-fullheight#search
       div.hero-body
         div.container.has-text-centered
-          h1.title.big-text-2.is-uppercase.has-text-primary.is-mega-text Сарафан
-          h2.title.big-text-1.has-text-white Сервіс оцінки якості роботи
+          h1.title.is-size-1.is-uppercase.has-text-warning.is-mega-text Сарафан
+          h2.title.is-size-2.has-text-white Сервіс оцінки якості роботи
 </template>
 
 <script>
@@ -17,10 +17,6 @@
   @import "~material-colors/dist/colors";
 
   #search {
-    background-image: url('/static/img/bg.jpg');
-    background-repeat: no-repeat;
-    background-position: bottom;
-    background-attachment: fixed;
     background-size: cover;
   }
 
