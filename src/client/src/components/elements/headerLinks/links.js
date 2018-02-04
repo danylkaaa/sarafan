@@ -14,7 +14,16 @@ buttons.push({
   },
   tooltip: "Уввійти до акаунту",
   condition: () => !$store.getters.isLogged()
-})
+}),
+  buttons.push({
+    title: "Компанії",
+    icon: {
+      name: "home",
+      pack: "fa"
+    },
+    tooltip: "Уввійти до акаунту",
+    to:{name:'Company.search'}
+  })
 // buttons.push({
 //   title: "Реєстрація",
 //   class: "is-hidden-desktop",
