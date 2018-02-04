@@ -99,9 +99,11 @@
 
     },
     mounted () {
+      console.log('mounted')
       this.urlHandle(this.$route.query);
     },
     beforeRouteUpdate (to, from, next) {
+      console.log('1')
       this.urlHandle(to.query);
       next();
     }

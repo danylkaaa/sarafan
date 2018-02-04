@@ -34,7 +34,7 @@
     methods: {},
     computed: {
       userLink () {
-        return URLJoin(this.$config.ROOT_URL, '/#', '/user', this.user._id || this.user.id);
+        return URLJoin(this.$config.ROOT_URL, '/#', `/user?id=${this.user._id || this.user.id}`);
       },
       joined () {
         return (new Date(this.user.created)).toLocaleString();

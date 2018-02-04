@@ -4,7 +4,7 @@
     b-field
       b-input(:value="position.post", readonly, type="text")
     p.subtitle Особа
-      router-link(:to="{name:'Profile',params:{id:position.user}}")
+      router-link(:to="{name:'Profile',query:{id:position.user}}")
         user-short(:id="position.user")
 </template>
 <script>
