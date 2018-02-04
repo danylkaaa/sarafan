@@ -2,6 +2,11 @@ import API from '#/API';
 import Query from 'query-string';
 
 export default {
+  rating (id) {
+    return API
+      .noAuth()
+      .get(`/api/v1/company/${id}/rating`);
+  },
   loadByQuery (query) {
     console.log(Query.stringify(query))
     return API

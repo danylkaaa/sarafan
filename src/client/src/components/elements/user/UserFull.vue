@@ -4,9 +4,6 @@
       figure.image.avatar.is-256x256
         img.avatar-image(:src="user.picture||'/static/img/user.png'")
       br
-      div.has-text-centered
-        figure.image.is-128x128#qr
-          qr(:link="userLink", size="128")
       div.content
         section
           b-field(label="Ім'я")
@@ -38,7 +35,7 @@
       },
       joined () {
         return (new Date(this.user.created)).toLocaleString();
-      }
+      },
     },
     props: {
       user: {
