@@ -21,9 +21,19 @@ buttons.push({
       name: "home",
       pack: "fa"
     },
-    tooltip: "Увійти до акаунту",
-    to:{name:'Company.search'}
+    tooltip: "Знайти установу",
+    to: {name: 'Company.search'}
   })
+buttons.push({
+  title: "Користувачі",
+  icon: {
+    name: "search",
+    pack: "fa"
+  },
+  condition:()=>false,
+  tooltip: "Знайти користувача",
+  to: {name: 'User.search'}
+})
 // buttons.push({
 //   title: "Реєстрація",
 //   class: "is-hidden-desktop",
