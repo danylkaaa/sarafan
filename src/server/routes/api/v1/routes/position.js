@@ -27,7 +27,7 @@ router.get('/:id', async (req, res, next) => {
 
 router.get('/:id/rating', async (req, res, next) => {
     try {
-        let review = ReviewDB.get.byID(req.params.id);
+        let review = await ReviewDB.get.byID(req.params.id);
 
         let stats = await review.calculateRating();
         let average = 0;
