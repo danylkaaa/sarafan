@@ -1,12 +1,10 @@
 <template lang="pug">
   div
-    section.hero.is-info.is-medium#search
+    section.hero.is-info.is-fullheight#search
       div.hero-body
         div.container.has-text-centered
           h1.title.big-text-2.is-uppercase.has-text-primary.is-mega-text Сарафан
           h2.title.big-text-1.has-text-white Сервіс оцінки якості роботи
-  
-
 </template>
 
 <script>

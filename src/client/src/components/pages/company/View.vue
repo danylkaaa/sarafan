@@ -1,9 +1,14 @@
 <template lang="pug">
-  div.container
+  div.container(v-if="company")
+    br
+    section.hero.is-info.welcome.is-small
+      div.hero-body
+        div.container
+          h1.title {{company.name}}
     div.field.has-addons(v-if="haveEditRules")
       p.control
         a.button.is-danger(@click.stop="handleDelete", v-if="haveEditRules") Видалити
-        a.button.is-warning(@click.stop="handleEdit", v-if="haveEditRules")  Змінити
+        //a.button.is-warning(@click.stop="handleEdit", v-if="haveEditRules")  Змінити
     br
     b-tabs(v-if="company")
       b-tab-item(label="Інформація")

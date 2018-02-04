@@ -1,9 +1,10 @@
 <template lang="pug">
   div
-    div.box
+    div
       a.button.is-primary(@click.stop="handleLoad") Оновити
+    br
     div.container.columns.is-multiline
-      div.column.is-3-desktop.is-4-tablet(v-for="(position,i) in positions", :key="i")
+      div.column.is-4-desktop.is-6-tablet(v-for="(position,i) in positions", :key="i")
         position-short(:position="position")
 
 </template>

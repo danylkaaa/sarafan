@@ -1,12 +1,16 @@
 <template lang="pug">
   div.container
     br
+    section.hero.is-link.welcome.is-small(v-if="user")
+      div.hero-body
+        div.container
+          h1.title {{user.name}}
     div.field.has-addons
       p.control
         a.button.is-danger(@click.stop="handleDelete", v-if="haveEditRules") Видалити
-        a.button.is-warning(@click.stop="handleEdit", v-if="haveEditRules")  Змінити
+        // a.button.is-warning(@click.stop="handleEdit", v-if="haveEditRules")  Змінити
         router-link(:to="{name:'Company.create'}", v-if="$store.getters.isLogged()")
-          a.button.is-link Створити компанію
+          a.button.is-warning Створити компанію
     b-tabs(v-if="user")
       b-tab-item(label="Інформація")
         user-card(:user="user")
