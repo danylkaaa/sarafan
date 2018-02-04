@@ -4,6 +4,10 @@ const Utils = require('@utils');
 const config = require('@config');
 const validator = require('@validator');
 
+const PositionDB = require('@DBfolder/position');
+const CompanyDB = require('@DBfolder/company');
+const InviteDB = require('@DBfolder/invite');
+
 let User = new Mongoose.Schema({
     picture: {
         type: String,
@@ -60,6 +64,13 @@ User.pre('save', async function (next) {
     // if (this.isModified('password') || this.isNew) {
     //     this.password = await Utils.crypto.hash(this.password, config.security.SERVER_SALT);
     // }
+    next();
+});
+
+User.pre('remove', async function (doc, next) {
+    await PositionDB.remove.byUser(doc.id);
+    await CompanyDB.remove.byAdmin(doc.id);
+    await InviteDB.remove.byCompany(doc.id);
     next();
 });
 

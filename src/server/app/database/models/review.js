@@ -4,11 +4,11 @@ const Utils = require('@utils');
 const config = require('@config');
 
 let Review = new Mongoose.Schema({
-    from: {
+    target: {
         type: Mongoose.Schema.Types.ObjectId,
         required: true
     },
-    to: {
+    author: {
         type: Mongoose.Schema.Types.ObjectId,
         required: true
     },
