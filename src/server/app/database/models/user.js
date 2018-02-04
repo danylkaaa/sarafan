@@ -15,7 +15,6 @@ let User = new Mongoose.Schema({
     email:
         {
             type: String,
-            unique: true,
             validate: {
                 validator: (value) => validator.user.email(value).valid,
                 message: "{VALUE} is not a valid email"
@@ -26,8 +25,8 @@ let User = new Mongoose.Schema({
         default: Date.now
     },
     facebook: {
-        access:String,
-        refresh:String,
+        access: String,
+        refresh: String,
         id: String,
         picture: String
     },
@@ -46,7 +45,7 @@ User.plugin(require('mongoose-paginate'));
 /**
  * make new index in database by username
  */
-User.index({email: 1}, {unique: true});
+// User.index({email: 1}, {unique: true});
 
 /**
  * Before save a user document, Make sure:
@@ -129,7 +128,7 @@ User.methods.info = function () {
     let info = {
         id: this.id,
         role: this.role,
-        name:this.name,
+        name: this.name,
         created: this.created,
         email: this.email,
         picture: this.picture,
