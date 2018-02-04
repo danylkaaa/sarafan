@@ -8,10 +8,10 @@ const PositionDB = require('@DBfolder/position');
 const ReviewDB = require('@DBfolder/review');
 
 router.get('/:id', async (req, res, next) => {
-    try{
+    try {
         let position = await PositionDB.get.byID(req.params.id);
 
-        if(position) {
+        if (position) {
             return res.json({
                 success: true,
                 item: position
@@ -19,9 +19,45 @@ router.get('/:id', async (req, res, next) => {
         } else {
             return Utils.sendError(res, 404, 'Not found');
         }
-    }catch (err){
+    } catch (err) {
         console.log(err)
-        return Utils.sendError(res,500,err)
+        return Utils.sendError(res, 500, err)
+    }
+});
+
+router.get('/:id/rating', async (req, res, next) => {
+    try {
+        let reviews = await ReviewDB.get.byTarget(req.params.id);
+        let stats = {
+            quality: 0,
+            attitude: 0,
+            professionalism: 0,
+            sociability: 0,
+            speed: 0
+        }
+        
+        for(let review of reviews) {
+            for(let key in stats) {
+                stats[key] += review.stats[key];
+            }
+        }
+
+        let average = 0;
+        for(let key in stats){
+            stats[key] = Utils.calculateRating(stats[key], reviews.length);
+            average += stats[key];
+        }
+        average /= 5;
+
+        return res.json({
+            success: true,
+            item: {
+                stats,
+                average
+            }
+        })
+    } catch (error) {
+        return Utils.sendError(res, 500, error)
     }
 });
 
@@ -37,9 +73,9 @@ router.get('/:id/reviews', async (req, res, next) => {
         } else {
             return Utils.sendError(res, 404, 'Not found');
         }
-    }catch (err){
+    } catch (err) {
         console.log(err)
-        return Utils.sendError(res,500,err);
+        return Utils.sendError(res, 500, err);
     }
 });
 
