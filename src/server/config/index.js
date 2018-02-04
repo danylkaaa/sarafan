@@ -1,6 +1,7 @@
 "use strict";
 const path = require('path');
 
+
 function generateDB () {
     let suff = process.env.NODE_ENV == 'dev' ? "DEV" : "PROD";
     let address = process.env[`DB_${suff}_ADDRESS`];
