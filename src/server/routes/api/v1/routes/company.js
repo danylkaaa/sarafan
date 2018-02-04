@@ -33,9 +33,7 @@ router.get('/', async (req, res, next) => {
     try {
         let data = await CompanyDB.get.paginate(query(req.query), pagination(req.query));
         if (data) {
-            let docs = data.docs.map(x => {
-                x.address, x.administration, x.info, x.name, x.id
-            });
+            let docs = data.docs;
             return res.json({
                 success: true,
                 page: data.page,
