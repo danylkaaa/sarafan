@@ -1,12 +1,13 @@
 <template lang="pug">
   article.media(v-if="company")
-    figure.media-left
+    //figure.media-left
       p.image.is-64x64
         img.round-percent-10(:src="company.picture||'/static/img/user.png'")
     div.media-content
       div.content
       p
         strong {{company.name}}
+        br
         span {{company.id||company._id}}
       p {{address}}
 </template>

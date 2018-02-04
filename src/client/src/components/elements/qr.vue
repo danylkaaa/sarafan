@@ -1,5 +1,5 @@
 <template lang="pug">
-  qrcode-vue(:value="link",  :size="size", :level="H")
+  qrcode-vue(:value="link",  :size="size", level="H")
 </template>
 
 <script>

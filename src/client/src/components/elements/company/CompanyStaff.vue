@@ -3,7 +3,7 @@
     div.box
       a.button.is-primary(@click.stop="handleLoad") Оновити
     div.container.columns.is-multiline
-      div.column.is-3-desktop.is-4-tablet(v-for="(position,i) in positions", :key="i")
+      div.column.is-4-desktop.is-6-tablet(v-for="(position,i) in positions", :key="i")
         position-short(:position="position")
 </template>
 <script>
@@ -23,7 +23,7 @@
       async handleLoad () {
         this.$bus.$emit('load-start')
         try {
-          let result = await PositionAPI.loadByUser(this.user.id || this.user._id);
+          let result = await PositionAPI.loadByCompany(this.company.id||this.company._id);
           console.log(result.data)
           if (result.data.success) {
             this.positions = result.data.item;
@@ -38,7 +38,7 @@
     },
     computed: {},
     props: {
-      user: {
+      company: {
         required: true,
         type: Object
       }

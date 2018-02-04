@@ -1,15 +1,10 @@
 import API from '#/API';
 
 export default {
-  remove(id){
+  loadByCompany (id) {
     return API
       .access()
-      .delete(`/api/v1/invite/${id}`);
-  },
-  load (id) {
-    return API
-      .access()
-      .get(`/api/v1/company/${id}/invites`);
+      .get(`/api/v1/company/${id}/positions`);
   },
   loadByUser (id) {
     return API

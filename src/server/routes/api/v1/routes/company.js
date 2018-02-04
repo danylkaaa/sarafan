@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const Utils = require('@utils');
 const passport = require('passport');
-
+const PositionDB = require('@DBfolder/position');
 const CompanyDB = require('@DBfolder/company');
 const InviteDB = require('@DBfolder/invite');
 
@@ -52,15 +52,19 @@ router.get('/:id/invites', passport.authenticate(['access'], {session: false}), 
 });
 
 router.get('/:id/positions', async (req, res, next) => {
-    let company = await CompanyDB.get.byID(req.params.id);
+    try {
+        let company = await CompanyDB.get.byID(req.params.id);
 
-    if (company) {
-        return res.json({
-            success: true,
-            item: await PositionDB.get.byCompany(company.id)
-        });
-    } else {
-        return Utils.sendError(res, 403, 'Forbidden');
+        if (company) {
+            return res.json({
+                success: true,
+                item: await PositionDB.get.byCompany(company.id)
+            });
+        } else {
+            return Utils.sendError(res, 403, 'Forbidden');
+        }
+    }catch (err){
+        return Utils.sendError(res,500,err);
     }
 });
 
