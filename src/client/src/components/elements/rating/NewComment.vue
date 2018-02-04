@@ -1,5 +1,6 @@
 <template lang="pug">
   div.box
+    rating(:stats="comment.stats", ref="rating", :canModify="'true'")
     div.media
       figure.media-left
         p.image.is-64x64
@@ -16,26 +17,34 @@
   // import UserAPI from '#/UserAPI';
   import CommentsAPI from "#/CommentsAPI";
   import InputText from '@elements/InputText'
+  import Rating from '@elements/rating/RatingView';
 
   export default {
     components: {
-      InputText
+      InputText,
+      Rating
     },
     data () {
       return {
+        comment: {
+          stats: {
+            quality: 3,
+            speed: 3,
+            attitude: 3,
+            sociability: 3,
+            professionalism: 3
+          }
+        },
         from: null,
         to: null
       }
     },
     methods: {
-      async handleSave () {
-        if (!this.$refs.comment.isValid) {
-          this.$messages.error('Ви не написали відгук!');
-          return;
-        }
+      async send (comment) {
+        this.$bus.$off('comment', this.send)
         this.$bus.$emit('load-start');
         try {
-          const result = await CommentsAPI.save(this.newComment)
+          const result = await CommentsAPI.save(this.newComment);
           if (result.data.success) {
             this.$messages.success('Ви прокоментували роботу фахівця', this)
             this.$bus.$emit('comments-updated');
@@ -46,6 +55,18 @@
           this.$messages.error(err, this)
         }
         this.$bus.$emit('load-end');
+      },
+      rate () {
+        this.$bus.$off('comment', this.send)
+        this.$bus.$on('comment', this.send);
+        this.$refs.rating.toggle();
+      },
+      async handleSave () {
+        if (!this.$refs.comment.isValid) {
+          this.$messages.error('Ви не написали відгук!',this);
+          return;
+        }
+        this.rate();
       }
     },
     computed: {
@@ -53,13 +74,7 @@
         return {
           target: this.position.id || this.position._id,
           comment: this.$refs.comment.data,
-          stats: {
-            quality: 1,
-            attitude: 1,
-            professionalism: 1,
-            sociability: 5,
-            speed: 1
-          }
+          stats: this.comment.stats
         }
       }
     },

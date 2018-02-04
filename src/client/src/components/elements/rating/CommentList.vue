@@ -11,7 +11,8 @@
   export default {
     components: {
       Comment,
-      NewComment
+      NewComment,
+
     },
     data () {
       return {
@@ -54,11 +55,11 @@
       }
     },
     mounted () {
-      this.$bus.$on('comments-updated',this.load);
+      this.$bus.$on('comments-updated', this.load);
       this.load()
     },
-    destroyed(){
-      this.$bus.$off('comments-updated',this.load);
+    destroyed () {
+      this.$bus.$off('comments-updated', this.load);
     },
     props: {
       position: {

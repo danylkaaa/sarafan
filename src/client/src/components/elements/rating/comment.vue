@@ -1,12 +1,13 @@
 <template lang="pug">
   div.box
+    rating(:stats="comment.stats", ref="rating")
     div.media(v-if="comment && from")
       figure.media-left
         p.image.is-64x64
           img(:src="from.picture||'/static/img/user.png'")
         br
-        b-tag.is-info.is-large
-          span.has-text-white {{rating}}
+        b-tag.is-info.is-large()
+          a.has-text-white(@click.stop="$refs.rating.toggle") {{rating}}
       div.media-content
         div.content
           p
@@ -14,7 +15,7 @@
           p
             | {{created}}
             br
-            router-link(:to="{name:'User.view',query:{id:from.id||from._id}}") Профіль
+            router-link(:to="{name:'Profile',query:{id:from.id||from._id}}") Профіль
             br
             div {{text}}
             a.is-success(v-if="!isShort", @click.stop="()=>detailed=!detailed") Розгорнути
@@ -22,13 +23,16 @@
 </template>
 <script>
   import UserAPI from '#/UserAPI';
-
+  import Rating from '@elements/rating/RatingView';
   export default {
     data () {
       return {
         detailed: false,
         from: null
       }
+    },
+    components:{
+      Rating
     },
     methods: {
       async loadUser (id, name) {

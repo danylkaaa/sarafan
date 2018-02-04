@@ -14,7 +14,7 @@ let Review = new Mongoose.Schema({
     },
     modified: {
         type: Date,
-        default: Date.now
+        default: Date.now()
     },
     comment: {
         type: String,
@@ -54,8 +54,8 @@ let Review = new Mongoose.Schema({
     }
 });
 
-Review.pre('save', async function (next) {
-    this.modified = new Date();
+Review.pre('save', function (next) {
+    this.modified = Date.now();
     next();
 });
 

@@ -1,5 +1,8 @@
 <template lang="pug">
   div
+    br
+    a.button.is-success(@click.stop="$bus.$emit('comments-updated')") Оновити
+    hr
     b-taglist(attached)
       b-tag(type="is-dark").is-large Посада
       b-tag.is-info.is-large
