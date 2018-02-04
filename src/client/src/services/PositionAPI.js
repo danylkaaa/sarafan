@@ -11,4 +11,9 @@ export default {
       .access()
       .get(`/api/v1/user/${id}/positions`);
   },
+  load (id) {
+    return API
+      .noAuth()
+      .get(`/api/v1/position/${id}`)
+  }
 }

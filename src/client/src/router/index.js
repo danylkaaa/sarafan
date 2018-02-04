@@ -7,7 +7,7 @@ import CompanyCreate from '@pages/company/Create';
 import CompanyView from '@pages/company/View';
 import CompanySearch from '@pages/company/Search';
 import UserSearch from '@pages/user/Search';
-
+import PositionView from '@pages/Position/View'
 Vue.use(Router)
 export default new Router({
   routes: [
@@ -37,6 +37,11 @@ export default new Router({
       path: '/users',
       name: 'User.search',
       component: UserSearch
+    },
+    {
+      path:'/position/:id',
+      name:'Position.view',
+      component:PositionView
     },
     {
       path: '/company',

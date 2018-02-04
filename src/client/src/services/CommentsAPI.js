@@ -1,26 +1,14 @@
 import API from '#/API';
-import Query from 'query-string';
 
 export default {
-  loadByQuery (query) {
-    console.log(Query.stringify(query))
+  loadByPosition (id) {
     return API
       .noAuth()
-      .get(`/api/v1/company?${Query.stringify(query)}`);
+      .get(`/api/v1/position/${id}/reviews`);
   },
-  loadCompany (id) {
-    return API
-      .noAuth()
-      .get(`/api/v1/company/${id}`);
-  },
-  remove (id) {
+  save (data) {
     return API
       .access()
-      .delete(`/api/v1/company/${id}`);
-  },
-  create (data) {
-    return API
-      .access()
-      .post('/api/v1/company/create', data);
+      .post('/api/v1/review', data);
   }
 }

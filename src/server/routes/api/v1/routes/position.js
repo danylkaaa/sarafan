@@ -32,12 +32,13 @@ router.get('/:id/reviews', async (req, res, next) => {
         if (position) {
             return res.json({
                 success: true,
-                item: await ReviewDB.get.byTarget(company.id)
+                item: await ReviewDB.get.byTarget(position.id)
             });
         } else {
             return Utils.sendError(res, 404, 'Not found');
         }
     }catch (err){
+        console.log(err)
         return Utils.sendError(res,500,err);
     }
 });
