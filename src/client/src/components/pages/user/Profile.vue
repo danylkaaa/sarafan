@@ -1,10 +1,12 @@
 <template lang="pug">
   div.container
     br
-    section.hero.is-link.welcome.is-small(v-if="user")
-      div.hero-body
+    div
+      section.tile.notification.is-link.welcome.is-small(v-if="user")
         div.container
           h1.title {{user.name}}
+        figure.image.is-256x256#qr
+          qr(:link="userLink", size="256")
     div.field.has-addons
       p.control
         a.button.is-danger(@click.stop="handleDelete", v-if="haveEditRules") Видалити
@@ -24,12 +26,14 @@
   import UserCard from '@elements/user/UserFull';
   import UserInvites from '@elements/user/UserInvites';
   import UserPositions from '@elements/user/UserPositions';
+  import Qr from '@elements/qr';
 
   export default {
     components: {
       UserCard,
       UserPositions,
-      UserInvites
+      UserInvites,
+      Qr
     },
     name: 'profile',
     data () {
@@ -86,6 +90,10 @@
       }
     },
     computed: {
+      userLink () {
+        console.log('L', `https://sarafan.herokuapp.com/#/user?id=${this.user._id || this.user.id}`);
+        return  `https://sarafan.herokuapp.com/#/user?id=${this.user._id || this.user.id}`;
+      },
       haveEditRules () {
         if (!this.$store.getters.isLogged()) {
           return false;

@@ -1,14 +1,14 @@
 <template lang="pug">
   div.container(v-if="company")
     br
-    section.hero.is-info.welcome.is-small
-      div.hero-body
-        div.container
-          h1.title {{company.name}}
+    section.tile.notification.is-warning.is-small(v-if="company")
+      div.container
+        h1.title {{company.name}}
+      figure.image.is-256x256#qr
+        qr(:link="companyLink", size="256")
     div.field.has-addons(v-if="haveEditRules")
       p.control
         a.button.is-danger(@click.stop="handleDelete", v-if="haveEditRules") Видалити
-        //a.button.is-warning(@click.stop="handleEdit", v-if="haveEditRules")  Змінити
     br
     b-tabs(v-if="company")
       b-tab-item(label="Інформація")
@@ -24,6 +24,7 @@
   import CompanyInfo from '@elements/company/Info';
   import CompanyAddStaff from '@elements/company/CompanyAddStaff';
   import CompanyStaff from '@elements/company/CompanyStaff';
+  import Qr from '@elements/qr';
 
   export default {
     data () {
@@ -33,6 +34,7 @@
       }
     },
     components: {
+      Qr,
       CompanyInfo,
       CompanyAddStaff,
       CompanyStaff
@@ -91,6 +93,10 @@
       next();
     },
     computed: {
+
+      companyLink () {
+        return `https://sarafan.herokuapp.com/#/company/${this.company._id || this.company.id}`;
+      },
       isOwner () {
         if (!this.company || !this.$store.getters.isLogged() || !this.company.administration) {
           return false
