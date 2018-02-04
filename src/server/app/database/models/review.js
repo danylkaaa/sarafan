@@ -12,7 +12,7 @@ let Review = new Mongoose.Schema({
         type: Mongoose.Schema.Types.ObjectId,
         required: true
     },
-    created: {
+    modified: {
         type: Date,
         default: Date.now
     },
@@ -52,6 +52,11 @@ let Review = new Mongoose.Schema({
             max: 5
         }
     }
+});
+
+Review.pre('save', async function (next) {
+    this.modified = new Date();
+    next();
 });
 
 let reviewModel = Mongoose.model('Review', Review);
