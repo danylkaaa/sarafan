@@ -6,7 +6,7 @@ const Company = require('../models/company');
 const PositionDB = require('@DBfolder/position');
 const InviteDB = require('@DBfolder/invite');
 
-function create(data) {
+function create (data) {
     let administration = data.administration;
     data.administration = [];
     data.administration.push(administration);
@@ -15,13 +15,17 @@ function create(data) {
 };
 
 const get = {
-    byID(id) {
+    byID (id) {
         return DB.methods.get.byID(Company, id);
     },
-    byQuery(data) {
+    byQuery (data) {
         return DB.methods.get.oneByQuery(Company, data);
     },
-    async byAdmin(adminID) {
+    paginate (data, pagination) {
+        console.log(data,pagination)
+        return DB.methods.get.byQuery(Company, data, pagination);
+    },
+    async byAdmin (adminID) {
         let companies = await DB.methods.get.all(Company);
         let finded = [];
 
@@ -39,7 +43,7 @@ const get = {
 };
 
 const remove = {
-    byID(id) {
+    byID (id) {
         PositionDB.remove.byCompany(id);
         InviteDB.remove.byCompany(id);
         return DB.methods.remove.byID(Company, id);
@@ -47,7 +51,7 @@ const remove = {
 };
 
 const update = {
-    byID(id, data) {
+    byID (id, data) {
         return DB.methods.update.byID(Company, id, data);
     }
 }
