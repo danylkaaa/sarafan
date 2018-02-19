@@ -1,7 +1,7 @@
 # Sarafan
 #### [Demo](https://sarafan.herokuapp.com/)
 Created by the Reservoir Code team on the  hackathon Int20 2018.
-Command structure:
+### Command structure:
 * __[Kazimirov Danil](https://github.com/ZulusK)__
 * __[Rukhailo Pavlo](https://github.com/IceBroForever)__
 * __[Mihail Lukyanets](https://github.com/TGIfr)__
